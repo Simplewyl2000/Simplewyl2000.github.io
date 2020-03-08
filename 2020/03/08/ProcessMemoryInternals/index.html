@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>ProcessMemoryInternals - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Sunday, March 8th 2020, 10:08 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    2.2k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      8 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="Chapter-7-Process-Memory-Internals"><a href="#Chapter-7-Process-Memory-Internals" class="headerlink" title="Chapter 7 Process Memory  Internals"></a>Chapter 7 Process Memory  Internals</h1><p>This chapter gives the details about the  process Memory.</p>
+<p>First, we start with</p>
+<h2 id="What-is-in-the-Process-memory"><a href="#What-is-in-the-Process-memory" class="headerlink" title="What is in the Process memory"></a>What is in the Process memory</h2><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200308222601149.png" srcset="/img/loading.gif" alt="image-20200308222601149"></p>
+<p>Actually, Linux has the same component except the DLL.</p>
+<ul>
+<li><p><em>Mapped files and application</em>:  This is the place where the process store data from the disk ( like read(“1.txt”)）</p>
+</li>
+<li><p><em>PEB</em>:  The process’s environment is stored here</p>
+</li>
+</ul>
+<hr>
+<p>We may notice the MmHighestUserAddress, this address vary between different operating  systems.</p>
+<hr>
+<h3 id="API-that-are-used-to-allocate-the-memory"><a href="#API-that-are-used-to-allocate-the-memory" class="headerlink" title="API that are used to allocate the memory"></a>API that are used to allocate the memory</h3><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200308224939441.png" srcset="/img/loading.gif" alt="image-20200308224939441"></p>
+<p>We see from the above picture, no matter heapAlloc or Non-heapAlloc APIs root in the native function NtAllocateVitualMemory(). </p>
+<p><strong>Attention：</strong></p>
+<blockquote>
+<p>Only a few of the APIs allow the programmer full control over permissions for the allocated memory.</p>
+</blockquote>
+<p>  permission includes: readable, writable, executable</p>
+<p>One important API is VirtualAllocEx, this is the only API that allows a process allocate memory for another process, thus it is often used by malwares to allocate memory for the shellcode.</p>
+<p><strong>Question:</strong></p>
+<blockquote>
+<p>These two virtual allocation functions are also the only ones that allow the caller to reserve memory (that is, set it aside) before committing it. This allows applications to “save” a large region of virtually contiguous memory for later use, without tying up the underlying physical pages in the meantime P193</p>
+</blockquote>
+<p>what is reserve memory and commit memory？</p>
+<h3 id="Enumerating-Process-Memory"><a href="#Enumerating-Process-Memory" class="headerlink" title="Enumerating Process Memory"></a>Enumerating Process Memory</h3><p>主要讲了一下跟进程相关的内存中的重要结构</p>
+<ul>
+<li>页表: 这个大家都懂，位于UVPT，用于虚拟地址和物理地址转换</li>
+<li>VAD: 这是用于对虚拟页的描述的， 比如一个进程申请了10个页，一个页4K，那么一个VAD就会被创建来描述这40K，如果其中有mapfile的话，VAD也是会有记录的</li>
+<li>工作集: 这是最近被使用过的页的集合</li>
+<li>PFN database: 这跟上面的不同，这是记录每一个物理页状态的database。这个database是一个存放在<strong>KDEBUGGER</strong>_DATA64.MmPfnDatabase中的数组</li>
+</ul>
+<p>接下来就来详细介绍一下页表和VAD</p>
+<h2 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h2><p>页表的作用就不在里说了，这里主要讲一下关于页表的volatility的插件</p>
+<p>memdump， memmap</p>
+<hr>
+<p>这两个插件可以挖掘出指定进程牵扯到(accessible)的页表，这里的accessible也可能涉及到内核页，但是并不代表该进程可以直接使用该页，而是出于他使用了系统掉用的原因把该页视为accessible。</p>
+<hr>
+<p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200309005215740.png" srcset="/img/loading.gif" alt="image-20200309005215740"></p>
+<p>这是memdump能拿到的指定进程牵涉到的页，可以看到其中有很多空白，这是指那些被换掉的页</p>
+<p>看一个实际的例子</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309005450013.png" srcset="/img/loading.gif" alt="image-20200309005450013"></p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309005529399.png" srcset="/img/loading.gif" alt="image-20200309005529399"></p>
+<p>可以看到</p>
+<ul>
+<li>虚拟地址也不是连续的，解释为可能被换了，也有可能没有commit</li>
+<li>有些大小是0x20000的，书上的解释说这个是Page Size Entry pages</li>
+</ul>
+<hr>
+<p>这个PSE在第三章也有提到，但是不是很清楚原理。</p>
+<p>PSE:</p>
+<hr>
+<p>再注意到最右边的DumpfileOffset，因为一段内存可能很大比如8G，但是一个程序不可能全部都用到，所以跟他相关的页其实不多，但是他也有可能不连续的使用比如在1G,6G的位置分别用了一页，但是我们没必要把1G到6G无关的内存全部导出来分析(相当于导出文件把中间的5G压缩了)，所以这个值是指对应的页在导出文件的偏移位置。</p>
+<p>到现在为止，其实你已经拿到有关的页了，但是你还不知道这些页对应到的是什么，比如哪些页是对应mapfile，哪些是对应dll这样，所以接下来有请第二位主角VAD</p>
+<h2 id="VAD"><a href="#VAD" class="headerlink" title="VAD"></a>VAD</h2><p>VAD的全称是virtual address description</p>
+<p>VAD实际上是一个树状结构，说的清楚一点，就有点像一个线段树，每一个节点都是一段内存<strong>，但是！</strong>他不是线段树！！！是一个平衡二叉树，毕竟为了更加快速地查找修改。</p>
+<p>VAD的每一个节点存了这样一些信息:</p>
+<ul>
+<li>这段内存有没有mapfile</li>
+<li>这段内存有多少页</li>
+<li>这段内存的初始保护状态(写，读，执行)</li>
+<li>其他flag值</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309011634584.png" srcset="/img/loading.gif" alt="image-20200309011634584"></p>
+<p>上面的图是可以用插件画出来的！-vadtree 插件</p>
+<h3 id="VAD结构"><a href="#VAD结构" class="headerlink" title="VAD结构"></a>VAD结构</h3><p>在进程的_EPROCESS的结构体中，其中有个叫做VadRoot的指针，指向这个VAD的root。</p>
+<p>VAD的节点中当然还要存左右孩子指针。</p>
+<p>分配内存的函数类型和其参数决定了这段内存的性质，也就决定了VAD中的一些信息</p>
+<p>对于不同的系统来说，VAD的节点可能有所不同，但是差别不大，都是分为_MMVAD_SHORT, _MMVAD, _MMVAD_LONG。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309030653676.png" srcset="/img/loading.gif" alt="image-20200309030653676"></p>
+<p>我们先看一下root节点的结构</p>
+<p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200309012707661.png" srcset="/img/loading.gif" alt="image-20200309012707661"></p>
+<p>可以看到其中指向的头节点，其类型为_MMADDRESS_NODE</p>
+<p>我们再具体看下VAD 的结构</p>
+<p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200309012720197.png" srcset="/img/loading.gif" alt="image-20200309012720197"></p>
+<p>Vpn的意思是Virtual Page Number的意思，用这个开始的页号和结束的页号，我们可以得到整个占用的内存大小</p>
+<p>这个node结构其实不是真正的node结构，是node中基本最基本信息，就像我们之前看到的表，是有三种不同node的</p>
+<p>我们看一下:</p>
+<p>short node</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309013820722.png" srcset="/img/loading.gif" alt="image-20200309013820722"></p>
+<p>regular node</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309013834554.png" srcset="/img/loading.gif" alt="image-20200309013834554"></p>
+<p>large node</p>
+<p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200309013857119.png" srcset="/img/loading.gif" alt="image-20200309013857119"></p>
+<p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200309013903634.png" srcset="/img/loading.gif" alt="image-20200309013903634"></p>
+<p>我们可以注意到，跟普通和大节点不一样的是</p>
+<p>小节点没有那个mapfile和dll记录，所以如果要找mapfile或者dll的话不用去小节点里面找</p>
+<p>反过来想，因为小页面就是存可执行代码的多，所以我们在找shellcode的时候，就不会去large或者regular中找，而是到小的里面找(比如下面的VadS或者VadF)</p>
+<p><strong>我们是怎么使用Volatility来区分各个节点的呢?</strong></p>
+<p>我们会发现一个很神奇的事情，这些结构的第一个成员的偏移竟然是负的！！！实际上这是在这个结构之前的PoolTag，来指定这个VAD的类型！按照书上这么说的话，这个VAD应该也是一种object！</p>
+<p>Tag与Node类型对应表</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309015945750.png" srcset="/img/loading.gif" alt="image-20200309015945750"></p>
+<h3 id="VAD-flag"><a href="#VAD-flag" class="headerlink" title="VAD flag"></a>VAD flag</h3><p>flag 是一个在node中的8字节联合</p>
+<p>[0，51)代表了commitCharge， </p>
+<p>[51,52)代表了Nochange</p>
+<p>[52,55)代表了Vad_type</p>
+<p>[55,56)代表了MemCommit</p>
+<p>[56-61)位代表的是Protection</p>
+<p>[61,63)代表了Spare</p>
+<p>[63.64)代表了PrivateMemory</p>
+<p>分别来看下这CommitCharge和Protection</p>
+<h4 id="CommitCharge"><a href="#CommitCharge" class="headerlink" title="CommitCharge"></a>CommitCharge</h4><p>这个代表了在该VAD代表的内存范围中，有多少是被该进程commit的。这个成员跟MemCommit是有点类似的。</p>
+<blockquote>
+<p>MemCommit tells you whether the memory was committed when the virtual allocation API (NtAllocateVirtualMemory) was first called</p>
+</blockquote>
+<p>但是对于书中的这一段话我不是很理解</p>
+<blockquote>
+<p>The reason we care about this field is because historically when code injecting malware sets up the target process’ address space to receive the malicious code, it commits all pages up front—it doesn’t reserve them and then go back and commit them later (although it very well could). Thus, you can use these additional characteristics to help identify injected memory regions.</p>
+</blockquote>
+<h4 id="Protection"><a href="#Protection" class="headerlink" title="Protection"></a>Protection</h4><p>这个很好理解，就是各个位分开表示该段内存的之前权限。可以用来帮助判断一段未知内存的大概作用。</p>
+<p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200309022822680.png" srcset="/img/loading.gif" alt="image-20200309022822680"></p>
+<p><strong>Attention！</strong></p>
+<hr>
+<p>这个保护级别是指刚开始申请的的保护级别，比如一段内存第一次申请的时候是不可执行，这个protection字段就就设置为不可执行，但是第二次申请其中某些页为可执行该VAD中的protection位依旧是保持不可执行的值，但是这段内存中重新被申请的页却是可执行的，因为一开始申请这个VAD的时候，是针对这个范围的所有的页，但是权限这个东西却是以页为单位的。所以其中的页被再申请之后真正的protection变了也不足为奇。</p>
+<hr>
+<h4 id="Private-memory"><a href="#Private-memory" class="headerlink" title="Private memory"></a>Private memory</h4><p>指的是不能被分享以及不能被继承的memory。</p>
+<p>因为mapfile和DLL一般是被share的，所以如果该位被置1了，则很有可能就不是这两种而更有可能是堆栈之类的。</p>
+<blockquote>
+<p>A process’ heaps, stacks, and ranges allocated with VirtualAlloc or VirtualAllocEx are usually marked as private. As previously described, because VirtualAllocEx is used to allocate memory in a remote process, the PrivateMemory member is yet another factor you can look at when looking for injected shell code.</p>
+</blockquote>
+<h3 id="跟VAD有关的插件"><a href="#跟VAD有关的插件" class="headerlink" title="跟VAD有关的插件"></a>跟VAD有关的插件</h3><h4 id="vadinfo"><a href="#vadinfo" class="headerlink" title="vadinfo"></a>vadinfo</h4><p>这个是将有关的全部vad node全部信息打出来</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309024135250.png" srcset="/img/loading.gif" alt="image-20200309024135250"></p>
+<h4 id="vaddump"><a href="#vaddump" class="headerlink" title="vaddump"></a>vaddump</h4><p>将VAD树中的所有内存找出来存到一个文件中去，跟之前的memmap不一样，那个是有压缩的，这个是用0填充了。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309024646347.png" srcset="/img/loading.gif" alt="image-20200309024646347"></p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309024738938.png" srcset="/img/loading.gif" alt="image-20200309024738938"></p>
+<h4 id="vadtree"><a href="#vadtree" class="headerlink" title="vadtree"></a>vadtree</h4><p>这个之前介绍过了，可以把树画出来</p>
+<h2 id="一些例子"><a href="#一些例子" class="headerlink" title="一些例子"></a>一些例子</h2><h3 id="查找内存中的用户名和密码"><a href="#查找内存中的用户名和密码" class="headerlink" title="查找内存中的用户名和密码"></a>查找内存中的用户名和密码</h3><p>这里介绍到了一个函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search_ process_memory()</span><br></pre></td></tr></table></figure>
+
+<p>这是在遍历树的时候到对应的范围查找对应的pattern，找到则返回位置，在这个例子中就是查找&amp;password，&amp;username(浏览器POST的参数)</p>
+<h3 id="Yara插件的应用"><a href="#Yara插件的应用" class="headerlink" title="Yara插件的应用"></a>Yara插件的应用</h3><p>这个插件很强，可以在很多数据中匹配pattern，比如文件或者memory dump。</p>
+<p>因为我们很多直接的搜索是在物理内存上，当数据跨页了就很难找到了，但是这个插件解决了这个问题。而且可以一次匹配多个rule</p>
+<h3 id="在内存中查找宙斯密码的密钥"><a href="#在内存中查找宙斯密码的密钥" class="headerlink" title="在内存中查找宙斯密码的密钥"></a>在内存中查找宙斯密码的密钥</h3><p>这个过程有点复杂，首先逆向要看他的函数调用关系，确定一些必要的指令片段之后用这些指令片段去匹配。</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/memory-forensics/">memory forensics</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "ProcessMemoryInternals&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
