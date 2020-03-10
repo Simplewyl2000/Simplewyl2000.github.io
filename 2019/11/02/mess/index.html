@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Mess - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Saturday, November 2nd 2019, 1:15 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.5k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      5 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="杂七杂八"><a href="#杂七杂八" class="headerlink" title="杂七杂八"></a>杂七杂八</h1><p>对目前CNN知识的一点小总结，前前后后学了CNN几遍了，看了忘，忘了看，希望这次做个试验把他记住咯。</p>
+<p>按顺序CNN的顺序进行一个知识点总结吧</p>
+<p>基本顺序:</p>
+<p>输入图片-&gt;卷积-&gt;池化-&gt;MLP-&gt;输出</p>
+<p>从卷积说起</p>
+<h3 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h3><p>这个还是比较简单的，注意下卷积核的概念就好</p>
+<p><img src="https://mlnotebook.github.io/img/CNN/convSobel.gif" srcset="/img/loading.gif" alt="img">)<img src="https://pic1.zhimg.com/v2-fb26f8eeaea46279cf9e94695289b44c_r.jpg" srcset="/img/loading.gif" alt="preview"></p>
+<p>目前照我的理解，卷积层中会有多个卷积核，得到多种feature map, 如下图所示</p>
+<h3 id="非线性激活"><a href="#非线性激活" class="headerlink" title="非线性激活"></a>非线性激活</h3><p>卷积之后进行一个类似于激活的操作，对卷积出来的结果进行一个激活</p>
+<p>卷积层对原图运算多个卷积产生一组线性激活响应，而非线性激活层是对之前的结果进行一个非线性的激活响应。</p>
+<p>在神经网络中用到最多的非线性激活函数是Relu函数，它的公式定义如下：</p>
+<p>f(x)=max(0,x)</p>
+<p>即，保留大于等于0的值，其余所有小于0的数值直接改写为0。</p>
+<p>为什么要这么做呢？上面说到，卷积后产生的特征图中的值，越靠近1表示与该特征越关联，越靠近-1表示越不关联，而我们进行特征提取时，为了使得数据更少，操作更方便，就直接舍弃掉那些不相关联的数据。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-b9508442abbab0395810df7f288ceda7_hd.png" srcset="/img/loading.gif" alt="img"></p>
+<h3 id="池化"><a href="#池化" class="headerlink" title="池化"></a>池化</h3><p><img src="https://pic3.zhimg.com/80/v2-bc7736e0a815c8db07a855c35234b76e_hd.png" srcset="/img/loading.gif" alt="img"></p>
+<p>之后便是重复这个过程到某一程度</p>
+<h3 id="全连接层-MLP"><a href="#全连接层-MLP" class="headerlink" title="全连接层(MLP)"></a>全连接层(MLP)</h3><p>在这之后，便是CNN的最后一部分，全连接层，而这一部分就和我们之前学到的MLP是一致的了</p>
+<p>输入是就是池化过的一些向量了</p>
+<p>接着就是我们熟悉的<strong>XW=Y</strong>环节了</p>
+<p>最后使用softmax函数输出最可能class即可</p>
+<p><img src="https://pic3.zhimg.com/80/v2-141ed65cf0003c9550a8d57fe7c6afb2_hd.png" srcset="/img/loading.gif" alt="img"></p>
+<p>这个地方要涉及到几个知识点，对于输入的数据进行处理:</p>
+<h4 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h4><p>降维在之前也是提到过的，就是比如投影或者换句话说PCA(主成分分析)</p>
+<h5 id="白化"><a href="#白化" class="headerlink" title="白化"></a>白化</h5><p>白化分为PCA白化与ZCA白化，这里简单说一下PCA白化</p>
+<p>先看一下PCA处理，至于特征值是通过奇异值分解得出的</p>
+<p><img src="https://img-blog.csdn.net/20160312120205309" srcset="/img/loading.gif" alt="img"></p>
+<p><img src="https://img-blog.csdn.net/20160312120214088" srcset="/img/loading.gif" alt="img"></p>
+<p>现在要提到一点，虽然PCA使得数据可以降维，但是为了做到数据标准化，我们还需要白化，首先解释一下什么是数据标准化以及他的意义</p>
+<h5 id="数据标准化"><a href="#数据标准化" class="headerlink" title="数据标准化"></a>数据标准化</h5><p>机器学习中, 如果我们以一个简单的线性回归方程来预测房屋的价格, 那方程可能会是这样 . </p>
+<p>价格= a* 离市中心 + b * 楼层 + c * 面积. 其中的 a b c 就是机器学习需要努力努力再努力 来优化的参数.</p>
+<p><img src="https://morvanzhou.github.io/static/results/ML-intro/norm5.png" srcset="/img/loading.gif" alt="特征标准化 (Feature Normalization)"></p>
+<p>我们可以把 abc 想想成3个人. 他们共同努力解决一个问题, 在某一个问题中, a工作的时候总是不知道发生了什么, b 的能力适中, c 工作能力最强, 老板看了他们一起工作的结果, 发现还有很多可以提高的地方, 然后不屑地说: 你们这个结果和我期望的还有很大差距, 你们快去缩小差距. 老板给的要求只是缩小差距. 可是 abc 都不知道差距在哪. 所以他们这次只好平分接下来的任务, 不过 c 很快就做完了, b 第二, a 做得很慢, 所以花的总时间很长, c 和 b 都要等 a 把剩下的工作做完才能再给老板看结果, 这样 效率并不高.</p>
+<p>​    把这个问题放在机器学习中, 为了好理解, 我们把 b 先排除掉. 再把房价问题也简化一下, 留下两个特征. 因为面积的跨度一般可以从0 到 2-300, 而离市中心的距离跨度一般在10以内. 所以在这个公式中, c 只要稍稍变化一点, 他乘以面积的变化就会很大, 因为面积的值可以很大, 但是当a也变化那一点点时, 他对预测价格的影响力不会像 c 那样巨大. 这样的差别就会影响最终的工作效率. 所以, 我们要提高效率, 特征的标准化就可以帮上忙. 我们在机器学习训练之前, 先对数据预先处理一下, 取值跨度大的特征数据, 我们浓缩一下, 跨度小的括展一下, 使他们的跨度尽量统一.</p>
+<p><a href="https://morvanzhou.github.io/static/results/ML-intro/norm6.png" target="_blank" rel="noopener"><img src="https://morvanzhou.github.io/static/results/ML-intro/norm6.png" srcset="/img/loading.gif" alt="特征标准化 (Feature Normalization)"></a></p>
+<p>这就是数据标准化的意义，接下来便是具体的数据化标准: PCA白化</p>
+<h5 id="PCA白化"><a href="#PCA白化" class="headerlink" title="PCA白化"></a>PCA白化</h5><p>所谓的pca白化是指对上面的pca的新坐标X’,每一维的特征做一个标准差归一化处理。因为从上面我们看到在新的坐标空间中，(x1,x2)两个坐标轴方向的数据明显标准差不同，因此我们接着要对新的每一维坐标做一个标注差归一化处理：</p>
+<p><img src="https://img-blog.csdn.net/20160312121312585" srcset="/img/loading.gif" alt="img"></p>
+<p>当然你也可以采用下面的公式：</p>
+<p><img src="https://img-blog.csdn.net/20160312121413148" srcset="/img/loading.gif" alt="img"></p>
+<p>得到效果</p>
+<p><img src="https://img-blog.csdn.net/20160312121102984" srcset="/img/loading.gif" alt="img"></p>
+<p>而ZCA白化则是将修改过的数据还原到最开始的坐标下去</p>
+<p>在有了之前的特征标准化之后，再说一下批标准化</p>
+<h5 id="批标准化"><a href="#批标准化" class="headerlink" title="批标准化"></a>批标准化</h5><p>批标准化在我看来主要是在做这样一件事情:</p>
+<p>在输出的时候，在激活函数和network层之间加一个BN层，相当于是把<strong>WX</strong>这个结果标准化到了激活函数敏感的区间中去，举个栗子    </p>
+<p><img src="https://morvanzhou.github.io/static/results/ML-intro/NB5.png" srcset="/img/loading.gif" alt="批标准化 (Batch Normalization)"></p>
+<p>当数据分布在两侧过多的时候，事实上激活函数对数据就不敏感了。</p>
+<p>所以在标准化之后就会好很多。</p>
+<p><img src="https://morvanzhou.github.io/static/results/ML-intro/NB4.png" srcset="/img/loading.gif" alt="批标准化 (Batch Normalization)"></p>
+<p>之后就是训练内容</p>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>训练的话在全连接层是我们学过的BP算法即可</p>
+<p><strong>池化层</strong></p>
+<p><strong>卷积层</strong></p>
+<p>这两者有其特殊的方法更新矩阵</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Deep-learning/">Deep learning</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Math/">Math</a>
+                
+                  <a class="hover-with-bg" href="/tags/Deep-learning/">Deep learning</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Mess&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

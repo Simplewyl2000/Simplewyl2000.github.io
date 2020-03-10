@@ -169,15 +169,15 @@
         
           <i class="iconfont icon-inbox"></i>
           
-            <a href="/categories/Memory-Forensics/">Memory Forensics</a>&nbsp;
+            <a href="/categories/Memory-forensics/">Memory forensics</a>&nbsp;
           &nbsp;
         
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/windows/">windows</a>&nbsp;
+            <a href="/tags/Windows/">Windows</a>&nbsp;
           
-            <a href="/tags/system/">system</a>&nbsp;
+            <a href="/tags/System/">System</a>&nbsp;
           
         
       </div>
@@ -210,7 +210,7 @@ The previous chapter introduced you to process memory internals and set the foun
         
           <i class="iconfont icon-inbox"></i>
           
-            <a href="/categories/Memory-Forensics/">Memory Forensics</a>&nbsp;
+            <a href="/categories/Memory-forensics/">Memory forensics</a>&nbsp;
           &nbsp;
         
         
@@ -255,7 +255,7 @@ Mapped files and application:  This is the place where the process store data fr
         
           <i class="iconfont icon-inbox"></i>
           
-            <a href="/categories/Memory-Forensics/">Memory Forensics</a>&nbsp;
+            <a href="/categories/Memory-forensics/">Memory forensics</a>&nbsp;
           &nbsp;
         
         
@@ -290,7 +290,7 @@ Notation explanation(some notations that will be used in the foll</div>
         
           <i class="iconfont icon-inbox"></i>
           
-            <a href="/categories/Machine-Learning/">Machine Learning</a>&nbsp;
+            <a href="/categories/Machine-learning/">Machine learning</a>&nbsp;
           &nbsp;
         
         
@@ -298,7 +298,319 @@ Notation explanation(some notations that will be used in the foll</div>
           
             <a href="/tags/Math/">Math</a>&nbsp;
           
-            <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
+            <a href="/tags/Machine-learning/">Machine learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/03/01/Lab1%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/">
+        <p class="h4 index-header">MIT6.828 Lab1</p>
+      </a>
+
+      <a href="/2020/03/01/Lab1%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Lab1 预备知识首先我们要知道在80386下的三种模式
+
+实模式
+保护模式不分页
+保护模式分页
+
+我们以这样一道题来看一下这些模式的区别和特点
+
+  已知:  GDT和LDT的首地址分别为55600000H和00013000H，FS=000BH CR3=00013000H , ESI=0000125AH，内存有关数据如图所示。执行指令MOV EAX，FS:[ESI]，求：1.PE=0时源操作对应的物理地址及EAX中的值2.PE=1且PG=0时源操作对应的物理地址及EAX中的值3.PE=1且PG=1时源操作对应的物理地址及EAX中的值
+
+
+我们先看一下实模式
+实模式​    我们都知道在早期的</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-01&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Operating-system/">Operating system</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Operating-system/">Operating system</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/02/26/PDF%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90/">
+        <p class="h4 index-header">PDF structure</p>
+      </a>
+
+      <a href="/2020/02/26/PDF%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">PDF文件结构解析发现国内对于PDF文件的解析比较少，最近看了一篇PDF malware的文章，正好在这里记录一下PDF文件结构的学习。
+先给出官方文档:传送门
+大体结构
+以上就是PDF的四个基本结构，先大概叙述一下这几个的作用
+Header：负责表示版本号，Header的格式基本是固定的
+Body：这是PDF的主要content的位置
+Xref：用于各个object的随机访问，存的是各个object的开始位置距离文件开始的偏移，object是PDF一个存储内容unit。
+Trailer: 这是PDF解释器的入口，存了一些入口信息，比如root， info(关于整个文件的信息比如object数</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-26&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Software-security/">Software security</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Software-security/">Software security</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/01/25/SVM/">
+        <p class="h4 index-header">SVM</p>
+      </a>
+
+      <a href="/2020/01/25/SVM/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">SVM的一点心得支持向量机公式推导
+
+首先明确，在虚线上的点被称为支持向量
+好，知道这点之后往后看
+为了使得分类效果较好，我们往往希望支持向量到分类面的距离d1,d2 可以最大，
+于是有了算这个决策面的方法
+首先看距离公式：
+
+这是在高中学过的距离公式
+其中，w，x是向量，w对应到二维平面就是斜率咯
+再看约束条件
+
+
+
+这里注明一下，这个d是一个常量，应该理解为d1这样，要跟之后的d相区分，是指支持向量到决策面距离
+
+
+
+
+​    看到这里，稍微解释一下，只有是支持向量才能将上半部分替换为1，于是扩大d的方法就是得到w的最小值
+
+
+注意，这个1/2是为了之后求导方便
+求得最小值约束条件下最小</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Machine-learning/">Machine learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Machine-learning/">Machine learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/12/25/SVD%E7%AE%97%E6%B3%95/">
+        <p class="h4 index-header">SVD</p>
+      </a>
+
+      <a href="/2019/12/25/SVD%E7%AE%97%E6%B3%95/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">SVD算法
+先上一张图。。。
+我们最终的目的就是将目标M矩阵分解成
+
+而对于μ1，μ2，就是奇异值，其实是特征值开根号。
+注意到，
+
+我们可以用几个简单矩阵的加和来表示目标矩阵M
+可以实现小的奇异值去掉，进而实现去噪功能，因为奇异值在这里是可以理解为权重的
+
+我们来看一下奇异值分解的过程
+首先实现矩阵的两种转置相乘
+
+看第二步，VDVT，这是矩阵的对角化操作其中D是对角矩阵而且是W的特征值而且全为正数。
+于是将D拆开成Σ和Σ的转置相乘（其中Σ里的值就是奇异值），也就是说Σ里的值是特征值开根号
+中间加入VTV，因为V是正交矩阵(实数域下正交矩阵就是幺正矩阵)，幺正矩阵的转置等于幺正矩阵的逆。
+这</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Machine-learning/">Machine learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Machine-learning/">Machine learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/12/25/OWASP/">
+        <p class="h4 index-header">OWASP</p>
+      </a>
+
+      <a href="/2019/12/25/OWASP/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">OWASPTOP 1  INJECTION
+Injection flaws occur when an attacker can send hostile data to an interpreter
+
+Injection vulnerabilities are often found in SQL, LDAP, XPath, or NoSQL queries, OS commands, XML parsers, SMTP headers, expression languages, and ORM queries. 
+
+
+example：
+
+How to protect
+
+Preventin</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Software-security/">Software security</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Software-security/">Software security</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/30/%E4%BB%8E%E4%B8%8A%E7%94%B5%E5%88%B0%E5%B1%95%E7%A4%BA%E7%BD%91%E9%A1%B5/">
+        <p class="h4 index-header">show Website</p>
+      </a>
+
+      <a href="/2019/11/30/%E4%BB%8E%E4%B8%8A%E7%94%B5%E5%88%B0%E5%B1%95%E7%A4%BA%E7%BD%91%E9%A1%B5/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">从上电到展示网页
+首先将网卡和以太网线相连
+使用DHCP，此时查找本地的ARP转发表，若无网关对应的mac，则广播，封装成帧，DHPC响应之后，获得IP地址。
+输入google.com
+DNS解析出IP地址
+使用IP地址封装网络层包
+此时查找本地的ARP转发表，若无网关对应的mac，则广播。封装成帧。
+此时开始和google的服务器建立TCP连接
+第三次握手时开始请求数据
+google服务器发送应答
+到达客户端之后浏览器显示页面
+
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-30&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Network/">Network</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Network/">Network</a>&nbsp;
           
         
       </div>
@@ -306,6 +618,18 @@ Notation explanation(some notations that will be used in the foll</div>
   </div>
 
 
+
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 

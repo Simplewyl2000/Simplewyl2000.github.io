@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>PKI - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Sunday, October 20th 2019, 7:57 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    906 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      3 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="PKI"><a href="#PKI" class="headerlink" title="PKI"></a>PKI</h1><h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>证书签发机构（CA）<br>证书注册机构（RA）<br>证书库<br>密钥备份及恢复系统(签名私钥是不在PKI备份的！)<br>证书废除处理系统<br>应用系统接口</p>
+<h3 id="证书签发机构CA"><a href="#证书签发机构CA" class="headerlink" title="证书签发机构CA"></a>证书签发机构CA</h3><p>CA对任何一个主体的公钥进行公证<br>CA通过签发证书将主体与公钥进行捆绑</p>
+<h4 id="证书注册机构RA"><a href="#证书注册机构RA" class="headerlink" title="证书注册机构RA"></a>证书注册机构RA</h4><p>RA（Registration Authority)是CA的组成部分，RA是CA面向用户的窗口，它负责接收用户的证书申请，审核用户的身份，RA也负责向用户发放证书</p>
+<h4 id="密钥备份与恢复"><a href="#密钥备份与恢复" class="headerlink" title="密钥备份与恢复"></a>密钥备份与恢复</h4><p>根据用户的需求，CA中心可以对用户的加密私钥进行备份，并确保密钥安全所有密钥的备份都采用密钥分享技术，并将备份信息分段保存在不同地方。所有密钥的恢复必须满足一定条件（人数、信息分段的位置、特定的算法）才能完成。</p>
+<h4 id="PKI的标准化"><a href="#PKI的标准化" class="headerlink" title="PKI的标准化"></a>PKI的标准化</h4><p>标准化可以实现规定的安全水平，具有兼容性，在保障安全的互连互通中起到关键作用<br>标准化有利于降低成本、训练操作人员和技术的推广使用<br>ITU-T X.509<br>PKIX文档（RFC）<br>PKCS系列标准</p>
+<h4 id="一般结构"><a href="#一般结构" class="headerlink" title="一般结构"></a>一般结构</h4><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200102173057649.png" srcset="/img/loading.gif" alt="image-20200102173057649"></p>
+<h3 id="PKI的关键技术"><a href="#PKI的关键技术" class="headerlink" title="PKI的关键技术"></a>PKI的关键技术</h3><p>数字证书<br>证书认证中心<br>证书撤销机制<br>PKI信任模型</p>
+<h4 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h4><p>证明用户身份，由机构向用户颁发的。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200102173514436.png" srcset="/img/loading.gif" alt="image-20200102173514436"></p>
+<h4 id="CA"><a href="#CA" class="headerlink" title="CA"></a>CA</h4><h5 id="颁发证书的过程"><a href="#颁发证书的过程" class="headerlink" title="颁发证书的过程:"></a>颁发证书的过程:</h5><ol>
+<li><p>用户到认证中心（CA）的业务受理点申请证书</p>
+</li>
+<li><p>认证中心审核用户的身份</p>
+</li>
+<li><p>认证中心为审核通过的用户签发证书</p>
+</li>
+<li><p>认证中心将证书灌制到证书介质中，发放给用户</p>
+</li>
+</ol>
+<h4 id="废除证书"><a href="#废除证书" class="headerlink" title="废除证书"></a>废除证书</h4><h5 id="废除证书的原因"><a href="#废除证书的原因" class="headerlink" title="废除证书的原因"></a>废除证书的原因</h5><ol>
+<li>证书用户身份信息的变更</li>
+<li>CA签名私钥的泄漏</li>
+<li>证书对应私钥的泄漏</li>
+<li>证书本身遭到损坏</li>
+<li>其他原因</li>
+</ol>
+<h5 id="证书废除过程"><a href="#证书废除过程" class="headerlink" title="证书废除过程"></a>证书废除过程</h5><ol>
+<li>用户到认证中心的业务受理点申请废除证书</li>
+<li>认证中心审核用户的身份</li>
+<li>认证中心定期签发证书黑名单（CRL）</li>
+<li>认证中心将更新的CRL在线发布，供用户查询和下载<ol>
+<li>CRL:   CRL是由CA认证中心定期发布的具有一定格式的数据文件，它包含了所有未到期的已被废除的证书信息。</li>
+</ol>
+</li>
+</ol>
+<h4 id="交叉认证"><a href="#交叉认证" class="headerlink" title="交叉认证"></a>交叉认证</h4><p>建立一个单一全球性的PKI是不太可能实现的，一段时间内，会存在多个PKI域，进行独立的运行和操作。<br>由于业务关系的改变或其他一些原因，不同的PKI的用户团体之间必须进行安全通信。<br>在以前没有联系的PKI之间建立信任关系，就需要实现交叉认证。<br>它能够让一个PKI团体的用户验证另一个PKI团体的用户证书，从而实现安全通信。</p>
+<h5 id="域内交叉认证"><a href="#域内交叉认证" class="headerlink" title="域内交叉认证"></a>域内交叉认证</h5><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200102174511458.png" srcset="/img/loading.gif" alt="image-20200102174511458"></p>
+<h5 id="域间交叉认证"><a href="#域间交叉认证" class="headerlink" title="域间交叉认证"></a>域间交叉认证</h5><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200102174519134.png" srcset="/img/loading.gif" alt="image-20200102174519134"></p>
+<h5 id="正向交叉认证"><a href="#正向交叉认证" class="headerlink" title="正向交叉认证"></a>正向交叉认证</h5><h5 id="反向交叉认证"><a href="#反向交叉认证" class="headerlink" title="反向交叉认证"></a>反向交叉认证</h5><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200102175005462.png" srcset="/img/loading.gif" alt="image-20200102175005462"></p>
+<h5 id="证书链"><a href="#证书链" class="headerlink" title="证书链"></a>证书链</h5><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200102175055091.png" srcset="/img/loading.gif" alt="image-20200102175055091"></p>
+<h5 id="验证证书"><a href="#验证证书" class="headerlink" title="验证证书"></a>验证证书</h5><p>为了获得对某一证书的信任，验证者必须验证关于每一个证书的三个方面，直到到达一个可信的根。</p>
+<p>STEP1: 验证真实性。证书是否为可信任的CA认证中心签发？（基于证书链进行验证）</p>
+<p>STEP2:验证有效性。证书是否在证书的有效使用期之内？</p>
+<p>STEP3:验证可用性。证书是否已废除？（证书可用性的验证是通过证书撤销机制来实现的。）</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Cryptography/">Cryptography</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Cryptography/">Cryptography</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "PKI&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

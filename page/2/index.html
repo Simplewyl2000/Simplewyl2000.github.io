@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="fas fa-angle-down scroll-down-arrow"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5 z-depth-3" id="board">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/26/%E7%BD%91%E7%BB%9C%E5%B1%82%E8%A6%81%E7%82%B9/">
+        <p class="h4 index-header">Network layer</p>
+      </a>
+
+      <a href="/2019/11/26/%E7%BD%91%E7%BB%9C%E5%B1%82%E8%A6%81%E7%82%B9/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">网络层要点路由器缓冲区大小设置B = RTT *R
+对于N通道
+B = RTT*R/((N)^1/2)
+IP 数据报格式相关位
+总长度: 16位，但是由于在传输的过程中不能大于MTU，所以总长度大于MTU的会被切片，在发送之前会使用ICMP进行对链路层MTU进行测试，总长度是切片之后的长度
+首部长度:首部长度共四位，以32位即4个字节为单位，记录了首部的长度，总长度减去首部为数据长度
+标识: 是对数据报进行重组用的ID
+标志: DF=0 -&gt;可以分片, MF=1-&gt;表示后面还有分片
+片偏移：占13位，但如何表示总长度为16位的呢，片偏移的单位是8个字节，所以不足8个字节的需要填充
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-26&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Network/">Network</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Network/">Network</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/25/GAN/">
+        <p class="h4 index-header">GAN</p>
+      </a>
+
+      <a href="/2019/11/25/GAN/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">GANGAN这个东西真的蛮有意思的，中文名叫对抗神经网络，如其名，整个训练过程就是D(discriminator) 和 G(Generator)的对抗，我们来看具体过程
+先笼统的说一下GAN的过程吧：
+
+首先D 拿到真实的数据，然后对应lable都是真，产生对真的score1
+
+然后又G来根据随机种子产生图片，丢到D里面去，这时候对应的lable都是假，产生对假的score2
+
+有了score1和score2之后就可以计算discriminator的loss了！拿到loss之后进行backward(注意，这里只对D进行更新！！！)
+
+将存储在G中的grad清零。
+
+然后G再产生一组新的fake</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Deep-learning/">Deep learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Deep-learning/">Deep learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/25/Nmap/">
+        <p class="h4 index-header">Nmap</p>
+      </a>
+
+      <a href="/2019/11/25/Nmap/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Nmap最基本的：nmap 域名(IP)
+这个域名解析也可以使用指定的dns-server
+nmap –dns -servers 8.8.8.8 域名
+端口相关nmap -pm-n IP：检测m-n的端口
+nmap -p80，135 IP : 检测80端口和135端口的状态
+nmap -p T:25 U:53 IP : 检测tcp的25和udp的53端口
+nmap -p s* IP: 检测s开头协议的所有端口
+nmap -p [1-65535]IP: 检测注册在nmap中的所有端口
+目标机器信息nmap -sV IP
+nmap -A -v -T4 IP： 侵略性探测可以识别目标的操作系统等，T</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Network/">Network</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Network/">Network</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/24/Style%20transfer/">
+        <p class="h4 index-header">Style transfer</p>
+      </a>
+
+      <a href="/2019/11/24/Style%20transfer/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Style transfer概述：
+给定一张内容图片，一张风格图片，将内容的图片的风格改为风格图片的内容
+
+因为需要内容相同，并且风格相同，所以可以定义一个loss函数表示风格loss和内容loss的和，同时，为了使得整个图片看得比较正常，我们加入total_variance loss， 使得整个图片更加平滑
+接下来我们来看下如何定义这么几个loss
+Content Loss我们假设是有已经训练好的CNN模型的
+我们从中取一层的feature作为内容的feature。
+然后将现在图片中的feature和内容的feature比较得出loss，具体公式如下。
+
+其中，Wc是给予内容误差的权重
+实现</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-24&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Deep-learning/">Deep learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Deep-learning/">Deep learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/21/RNN%20&%20LSTM/">
+        <p class="h4 index-header">GAN</p>
+      </a>
+
+      <a href="/2019/11/21/RNN%20&%20LSTM/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">RNN &amp; LSTM先介绍一下这个有名的数据集
+Ms COCO（Common Objects in COntext）
+ MS COCO的全称是Microsoft Common Objects in Context，起源于微软于2014年出资标注的Microsoft COCO数据集，与ImageNet竞赛一样，被视为是计算机视觉领域最受关注和最权威的比赛之一。        COCO数据集是一个大型的、丰富的物体检测，分割和字幕数据集。这个数据集以scene understanding为目标，主要从复杂的日常场景中截取，图像中的目标通过精确的segmentation进行位置的标定。图像包</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-21&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Deep-learning/">Deep learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Deep-learning/">Deep learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/13/CNN/">
+        <p class="h4 index-header">CNN</p>
+      </a>
+
+      <a href="/2019/11/13/CNN/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">CNN总结​    老样子，我们按照做的顺序来介绍
+卷积的前向传播​    一般输入是X(N, C, H, W)也就是说N个样本， C个channel，样本大小是H x W 
+​    卷积就是我们之前提到的
+
+​    图中这里只展示了单通道的卷积，在实际中是多通道的，直观理解就是立方体乘以立方体了
+​    但是我们也是可以看到，经过卷积之后发现是变小了的，但最本质的原因还是在于边界处的像素点相对于中心部分是被少计算了的
+​    于是我们有了padding，至于padding的大小，这个也可以很直观的看出来：
+​    H_padding = (filter_size - 1) // 2</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-13&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Deep-learning/">Deep learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Deep-learning/">Deep learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/11/BP/">
+        <p class="h4 index-header">Backward propagation</p>
+      </a>
+
+      <a href="/2019/11/11/BP/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">反向传播主要就是利用链式求导
+反向传播分为两种:
+
+隐含层到输出层
+隐含层到隐含层
+
+隐含层到输出层
+首先计算损失函数
+
+为了得到某个权重对于总误差的影响:
+得到：
+
+
+这样可以看到，就是一个反向回传的过程
+​    
+
+
+三者连乘
+得到这个梯度之后进行更新权重即可
+隐含层到隐含层
+就是注意一个问题
+因为隐含层到输出层是多对一，也就是说最后隐含层的节点只对后面一层的一个节点产生影响，当然回传也就是只需这个被影响的节点传回来，但是隐含层到隐含层是多对多，这也就是说前一个节点影响到了后一个的多个节点，所以和隐含层到输出层的不同就在于在计算回传的时候注意被影响的节点都要考虑到，仅此区别
+如上图
+​ </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-11&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Deep-learning/">Deep learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Deep-learning/">Deep learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/02/mess/">
+        <p class="h4 index-header">Mess</p>
+      </a>
+
+      <a href="/2019/11/02/mess/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">杂七杂八对目前CNN知识的一点小总结，前前后后学了CNN几遍了，看了忘，忘了看，希望这次做个试验把他记住咯。
+按顺序CNN的顺序进行一个知识点总结吧
+基本顺序:
+输入图片-&gt;卷积-&gt;池化-&gt;MLP-&gt;输出
+从卷积说起
+卷积这个还是比较简单的，注意下卷积核的概念就好
+)
+目前照我的理解，卷积层中会有多个卷积核，得到多种feature map, 如下图所示
+非线性激活卷积之后进行一个类似于激活的操作，对卷积出来的结果进行一个激活
+卷积层对原图运算多个卷积产生一组线性激活响应，而非线性激活层是对之前的结果进行一个非线性的激活响应。
+在神经网络中用到最多的非线性激活函数是Rel</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-02&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Deep-learning/">Deep learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Deep-learning/">Deep learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/10/26/softmax/">
+        <p class="h4 index-header">Softmax</p>
+      </a>
+
+      <a href="/2019/10/26/softmax/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">SoftMax首先介绍一下softmax公式
+
+当然损失函数也是比较好理解的
+
+
+求梯度
+
+
+o1,o2,o3代表是结点1,2,3往后传的输入.
+
+实验心得
+首先实验的时候就可以从另外一个角度去理解这个loss
+loss这样理解：正确种类的标准化得分的比例取对数再取反，因为要将这个分数最大化嘛，也就是将这个loss最小化即可。
+
+换一个角度去理解这个梯度的更新：错误的分类按照标准化分数之后的比例来取Xi定对应的Wi，就比如，Xi被在类K的得分为Ck，然后有关系Xi@Wi = Ck, 这时更新dW，dW = dW + Xi*p
+这个p是在k这个错误分类的得分标准化之后所占的比例，至于为什么是乘以</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-26&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Machine-learning/">Machine learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Machine-learning/">Machine learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/10/20/PKI/">
+        <p class="h4 index-header">PKI</p>
+      </a>
+
+      <a href="/2019/10/20/PKI/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">PKI组成证书签发机构（CA）证书注册机构（RA）证书库密钥备份及恢复系统(签名私钥是不在PKI备份的！)证书废除处理系统应用系统接口
+证书签发机构CACA对任何一个主体的公钥进行公证CA通过签发证书将主体与公钥进行捆绑
+证书注册机构RARA（Registration Authority)是CA的组成部分，RA是CA面向用户的窗口，它负责接收用户的证书申请，审核用户的身份，RA也负责向用户发放证书
+密钥备份与恢复根据用户的需求，CA中心可以对用户的加密私钥进行备份，并确保密钥安全所有密钥的备份都采用密钥分享技术，并将备份信息分段保存在不同地方。所有密钥的恢复必须满足一定条件（人数、信息分段的位</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-20&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Cryptography/">Cryptography</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Cryptography/">Cryptography</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Hello, world. This is Alan.&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>CNN - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Wednesday, November 13th 2019, 9:28 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      4 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="CNN总结"><a href="#CNN总结" class="headerlink" title="CNN总结"></a>CNN总结</h1><p>​    老样子，我们按照做的顺序来介绍</p>
+<h3 id="卷积的前向传播"><a href="#卷积的前向传播" class="headerlink" title="卷积的前向传播"></a>卷积的前向传播</h3><p>​    一般输入是X(N, C, H, W)也就是说N个样本， C个channel，样本大小是H x W </p>
+<p>​    卷积就是我们之前提到的</p>
+<p><img src="https://mlnotebook.github.io/img/CNN/convSobel.gif" srcset="/img/loading.gif" alt="img"></p>
+<p>​    图中这里只展示了单通道的卷积，在实际中是多通道的，直观理解就是立方体乘以立方体了</p>
+<p>​    但是我们也是可以看到，经过卷积之后发现是变小了的，但最本质的原因还是在于边界处的像素点相对于中心部分是被少计算了的</p>
+<p>​    于是我们有了padding，至于padding的大小，这个也可以很直观的看出来：</p>
+<p>​    H_padding = (filter_size - 1) // 2</p>
+<p>​    w_padding = (filter_size - 1) // 2</p>
+<p>​    从这里也可看出，filter_size的大小绝大多都是奇数乘以奇数。一是因为这个原因，二是因为奇数容易确定中心</p>
+<p>​    基本实现过程：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200201103541987.png" srcset="/img/loading.gif" alt="image-20200201103541987"></p>
+<p>​    之后就是卷积之后一个ReLu激活，这就是之前做过的，直接激活即可，只是之后BP的时候记得ReLU回来就可以了</p>
+<h3 id="卷积的后向传播"><a href="#卷积的后向传播" class="headerlink" title="卷积的后向传播"></a>卷积的后向传播</h3><p>​    这个地方是相对比较复杂的部分，但是基本原理还是求梯度了</p>
+<p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200201104347702.png" srcset="/img/loading.gif" alt="image-20200201104347702"></p>
+<p>​    直接从代码来看</p>
+<p>​    首先拿出x那个之前被卷积的那一部分,</p>
+<p>​    我们先不从量化数学的角度去想，直观的看， 可以看到dx的对应之前被卷积的部分是被加上了一坨东西的。 这坨东西是从后面传过来的导数然后乘以w然后一个个分到了x上，仔细一想这不就是之前我们多到1(卷积)，现在1到多回来了么。相当于每个x对这个导数做了多大贡献，之后根据贡献程度(w)摊到了x上。</p>
+<p>就有点像：<br>$$<br>\dot{X_i} : f(\sum_i^nX_i<em>W_i))=&gt; df</em>\sum_i^nW_i<br>$$</p>
+<p>​    哦对了，这里还有一个关于卷积后向讲得比较清楚的帖子，但是他这里需要将输入进行一个小小的变换，但是之后求解梯度的方法就具有很好的可解释性了。也是很好理解的方法！</p>
+<p><a href="https://zhuanlan.zhihu.com/p/40951745" target="_blank" rel="noopener">传送门</a></p>
+<h3 id="池化前向传播"><a href="#池化前向传播" class="headerlink" title="池化前向传播"></a>池化前向传播</h3><p>池化的话还算比较简单的啦，这里没有padding，毕竟这里就是想减小输入的大小</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200201105635711.png" srcset="/img/loading.gif" alt="image-20200201105635711"></p>
+<h3 id="池化后向传播"><a href="#池化后向传播" class="headerlink" title="池化后向传播"></a>池化后向传播</h3><p>跟卷积的后向传播一样</p>
+<p>这里是最大池化，选出最大的，我们可以按照之前卷积给出的那个公式来理解，最大的那个点的Wi是1，其他的点Wi是0，这样一来求导数回来只需要返回到那个唯一对这个loss做贡献的点上去就可以了，如果是平均池化，则就是平摊这个导数了，平均池化还更简单些</p>
+<p>实现上注意怎么求出这个mask使得导数全部回到那个最大的值上去就可以了，不过还好numpy给出了很便捷的方法，求解方法如下：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200201110552824.png" srcset="/img/loading.gif" alt="image-20200201110552824"></p>
+<p>解决了上述最为关键的几步之后，之后来看看高一层次的东西</p>
+<p>在这里提一嘴，这几层的实现可以使用Cython进行加速</p>
+<h3 id="三明治层"><a href="#三明治层" class="headerlink" title="三明治层"></a>三明治层</h3><p><img src="https://pic3.zhimg.com/80/v2-141ed65cf0003c9550a8d57fe7c6afb2_hd.png" srcset="/img/loading.gif" alt="img"></p>
+<p>就是传说中的Con-&gt;ReLU-&gt;Pooling了哈哈哈</p>
+<p>out, cache = conv_relu_forward(x, w, b, conv_param)</p>
+<h3 id="三层卷积网络"><a href="#三层卷积网络" class="headerlink" title="三层卷积网络"></a>三层卷积网络</h3><p>这个就比较简单辣，直接把之前的拼起来就行，（卷积-池化）x N + 全连接层 = 卷积神经网络</p>
+<p>全连接层就是我们之前很早就做过的affine_relu_forward 和affine_forward的组合了</p>
+<p>一般都是affine_relu_forward x N + affine_forward = 全连接层</p>
+<p>实现：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200201111934487.png" srcset="/img/loading.gif" alt="image-20200201111934487"></p>
+<p>可视化filter</p>
+<p><img src="data:image/png;base64,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" srcset="/img/loading.gif" alt="img"></p>
+<p>好了，基本的介绍完了，我们来看看可以用来优化的方法</p>
+<p>由于没有单独做batch normalization，这里介绍一下normalization的方法</p>
+<h3 id="Batch-normalization"><a href="#Batch-normalization" class="headerlink" title="Batch normalization"></a>Batch normalization</h3><h4 id="Forward"><a href="#Forward" class="headerlink" title="Forward"></a>Forward</h4><p>就是做一个标准化，这边使用了mu和sigema</p>
+<p>具体公式如下</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200201114630657.png" srcset="/img/loading.gif" alt="image-20200201114630657"><br>$$<br>X_I = \frac{X_i - \mu}{\sigma}<br>$$<br><img src="https://img-blog.csdn.net/20180326183535928" srcset="/img/loading.gif" alt="img"></p>
+<p>注意这里的Xi是上面的XI</p>
+<h4 id="Backward"><a href="#Backward" class="headerlink" title="Backward"></a>Backward</h4><p>​    backward就是高中求导了，首先传进来的是对XI的导数，之后我们对着Xi一顿操作求出对他的导数和传进来的导数乘起来就可以了。</p>
+<p>​    具体的求导过程这里就不给出了。</p>
+<p>​    具体实现如下：<br>​    <img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200201115233470.png" srcset="/img/loading.gif" alt="image-20200201115233470"></p>
+<p>注意，对于那个beta和gamma也是要有导数滴</p>
+<h4 id="Spatial-batch-normalization"><a href="#Spatial-batch-normalization" class="headerlink" title="Spatial batch normalization"></a>Spatial batch normalization</h4><p>​    这个优化的思想还是比较容易懂的，因为我们是在batch方向做的normalization，但是仔细想想这是不合理的，因为我们的filter是channel方向做的map，所以我们根据channel方向来做normalization是更合理的，要实现这个，只需要将数据按照channel进行排开就可以了，实现如下</p>
+<p>​    <img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200201113414029.png" srcset="/img/loading.gif" alt="image-20200201113414029"></p>
+<p>backward是一样的，转一下维度就可以了</p>
+<h4 id="Group-normalization"><a href="#Group-normalization" class="headerlink" title="Group normalization"></a>Group normalization</h4><p><img src="https://img-blog.csdn.net/20180326183603614" srcset="/img/loading.gif" alt="img"></p>
+<p>​    这里其实是对之前的一个进化，相当于是将数据按照channel排列之后再进行分组，然后在组内进行normalization，这么做的好处是训练时的每组数量固定，方差均值稳定</p>
+<p>实现如下：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200201115815880.png" srcset="/img/loading.gif" alt="image-20200201115815880"></p>
+<p>可以看到，除了分了组以外没啥区别，BP也是类似就不给出了</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Deep-learning/">Deep learning</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Math/">Math</a>
+                
+                  <a class="hover-with-bg" href="/tags/Deep-learning/">Deep learning</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "CNN&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

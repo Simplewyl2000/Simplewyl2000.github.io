@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>GAN - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Thursday, November 21st 2019, 4:59 am
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      5 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="RNN-amp-LSTM"><a href="#RNN-amp-LSTM" class="headerlink" title="RNN &amp; LSTM"></a>RNN &amp; LSTM</h1><p>先介绍一下这个有名的数据集</p>
+<p><strong>Ms COCO（Common Objects in COntext）</strong></p>
+<p> MS COCO的全称是Microsoft Common Objects in Context，起源于微软于2014年出资标注的Microsoft COCO数据集，与ImageNet竞赛一样，被视为是计算机视觉领域最受关注和最权威的比赛之一。<br>        COCO数据集是一个大型的、丰富的物体检测，分割和字幕数据集。这个数据集以scene understanding为目标，主要从复杂的日常场景中截取，图像中的目标通过精确的segmentation进行位置的标定。图像包括91类目标，328,000影像和2,500,000个label。目前为止有语义分割的最大数据集，提供的类别有80 类，有超过33 万张图片，其中20 万张有标注，整个数据集中个体的数目超过150 万个。</p>
+<p>这边连不上网所以看不了可视化的数据介绍</p>
+<p>开始我们的第一位主角：</p>
+<h2 id="RNN（Recurrent-Neural-Networks）"><a href="#RNN（Recurrent-Neural-Networks）" class="headerlink" title="RNN（Recurrent Neural Networks）"></a>RNN（Recurrent Neural Networks）</h2><p>首先我们可以注意到之前的所有网络都有一个共同的问题就是没有考虑到历史信息或者说各个输入之间的信息，但是对于很多要考虑上下文的处理中这是很致命的，所以诞生了RNN。</p>
+<p>我把这次实验中的网络图先贴出来，用此介绍RNN的结构，图有些潦草为当时帮助自己理解画的</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204032959699.png" srcset="/img/loading.gif" alt="image-20200204032959699"></p>
+<p>​    可以看到图中标注的12个的位置就是RNN了，我们可以先简单这样理解，是12个简单的全连接层，然后中间的一部分结果会从第1传到第12层。这也就实现了一个历史信息的传递。</p>
+<p>好，接下来，看看各个层的实现</p>
+<h3 id="Step-forward"><a href="#Step-forward" class="headerlink" title="Step_forward"></a>Step_forward</h3><p>看RNN的step_forward(其实我觉得这个图很像一位全加器，然后RNN连起来就像多位全加器了):</p>
+<img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204035051985.png" srcset="/img/loading.gif" alt="image-20200204035051985" style="zoom:25%;" />
+
+<p>这个结合历史和输入的神奇公式是这样的：</p>
+<p>out = prev_h @ Wh + x @ Wh + b</p>
+<p>然后：</p>
+<p>输出：tanh(state)</p>
+<p>这时候要注意，Out和Hi的关系. 这个地方的Outi是输出的Hi经过temproal_layer的结果，我这里画出来的Outi实际上不是这层的输出，只是实现连贯性理解。</p>
+<h3 id="Step-Backward"><a href="#Step-Backward" class="headerlink" title="Step_Backward"></a>Step_Backward</h3><p>Backward跟所有的BP都是一样的. 求导咯</p>
+<p>这里给出了dnext_h，然后往回链式求导</p>
+<p>实现：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204035605412.png" srcset="/img/loading.gif" alt="image-20200204035605412"></p>
+<h3 id="RNN-MODEL-FORWARD"><a href="#RNN-MODEL-FORWARD" class="headerlink" title="RNN_MODEL_FORWARD"></a>RNN_MODEL_FORWARD</h3><p>这个比较简单，只要能理解Rnn的结构即可，将每一次迭代的历史信息传递给下一次迭代</p>
+<p>实现：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204035904383.png" srcset="/img/loading.gif" alt="image-20200204035904383"></p>
+<h3 id="RNN-MODEL-BACKWARD"><a href="#RNN-MODEL-BACKWARD" class="headerlink" title="RNN_MODEL_BACKWARD"></a>RNN_MODEL_BACKWARD</h3><p>​    由于写好了基本的反向层，只要一层一层传就可以了。但是要注意到，历史信息是会向前传递的，所以，导数是需要往回传的。</p>
+<p>所以会有一个这样的累加：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204040202384.png" srcset="/img/loading.gif" alt="image-20200204040202384"></p>
+<p>所以实现:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204040234237.png" srcset="/img/loading.gif" alt="image-20200204040234237"></p>
+<p>对于输入的词语，我们要以向量的形式输入</p>
+<h3 id="word-embedding"><a href="#word-embedding" class="headerlink" title="word_embedding"></a>word_embedding</h3><p><strong>forward</strong></p>
+<p>这是一个这样的层，首先是 N x T 个词语的输入</p>
+<p>然后embedding层是一个 V x D 的层</p>
+<p>然后这个 N x T 中的值是在[0, V]</p>
+<p>所以将N x T 个单词中替换成 N x T 个V维的向量</p>
+<p>这个embedding的权重也是需要更新的</p>
+<p>实现上很简单:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204041201681.png" srcset="/img/loading.gif" alt="image-20200204041201681"></p>
+<p><strong>backward</strong></p>
+<p>这个embeding的backward，也是有点意思的，注意到这个函数np.add.at意思是在对应的位置加上指定的值。</p>
+<p>实现:</p>
+<p>np.add.at(dW, x.flatten(), dout.reshape(-1, D))</p>
+<p>也就是说在对应的单词权重上加上梯度</p>
+<h3 id="temporal-affine"><a href="#temporal-affine" class="headerlink" title="temporal_affine"></a>temporal_affine</h3><p>然后就是基本的全连接层了，将传递的历史信息传出来的层</p>
+<p>这个就不介绍了</p>
+<h2 id="IN-amp-OUT"><a href="#IN-amp-OUT" class="headerlink" title="IN &amp; OUT"></a>IN &amp; OUT</h2><p>我想说一下这个输入输出</p>
+<p>现在有一组captions。</p>
+<p>比如: 我 真的 睡不着 觉</p>
+<p>RNN的目的是判断下一个单词的输出</p>
+<p>这样我们把数据分成两组，输入和输出</p>
+<p>输入：我 真的 睡不着</p>
+<p>输出：真的 睡不着 觉</p>
+<p>然后输出可以作为label然后然后算loss回传</p>
+<p>​     推出</p>
+<p>我 ——-》 真的</p>
+<p>真的 ——》 睡不着</p>
+<p>睡不着 ——》觉</p>
+<p>然后还要注意一个问题: 因为输出的长度不定，所以会有Null填充， 但是Null又不能作为一个损失，所以要有一个mask来标记，此处是否为NULL, 然后决定损失上要不要加他。</p>
+<p>接下来有请下一位主角LSTM</p>
+<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><p>LSTM 的出现是因为如果接受的序列过长RNN会出现梯度消失和梯度爆炸的问题，所以我们应该有办法来限制历史信息不应该太长。</p>
+<p>于是有了LSTM， 实际上就是一个进化一点的RNN啦</p>
+<p>变化在于这里:</p>
+<ol>
+<li>多了一个传递信息C来控制哪些信息是需要的哪些信息是不需要的</li>
+<li>将原本的out拆成了四份</li>
+</ol>
+<p>来看具体的，先上一张图:<br><img src="https://pic2.zhimg.com/v2-556c74f0e025a47fea05dc0f76ea775d_1200x500.jpg" srcset="/img/loading.gif" alt="人人都能看懂的LSTM" style="zoom:50%;" /></p>
+<p>其实上图已经说得很明白了哈哈哈哈</p>
+<p>我们输入的依旧是N x T x D 的 x ， 这里我们会将x乘以W矩阵(D x 4H) 就会得到NxTx4H 的 out(同理对于历史信息)，</p>
+<p>注意，这里的拆分之前是跟RNN一致的，先求出out</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204045946993.png" srcset="/img/loading.gif" alt="image-20200204045946993"></p>
+<p>out就可以进行拆分成上图的 i, f , o, g (计算过程字母参照公式不是图)</p>
+<p>拆分之后的计算()：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204045930064.png" srcset="/img/loading.gif" alt="image-20200204045930064"></p>
+<p>之后算出传递信息</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204045938044.png" srcset="/img/loading.gif" alt="image-20200204045938044"></p>
+<p>然后说一下LSTM的backward：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204051653566.png" srcset="/img/loading.gif" alt="image-20200204051653566"></p>
+<p>这里解释了怎么得到dout(有点潦草)，但有了dout之后，相当于就把他拼回去了，之后就跟正常的一样求需要的就可以了</p>
+<h3 id="留了个问题"><a href="#留了个问题" class="headerlink" title="留了个问题"></a>留了个问题</h3><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204051843512.png" srcset="/img/loading.gif" alt="image-20200204051843512"></p>
+<p>没太理解这一部分内容，由于连不上远程主机也看到具体效果</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Deep-learning/">Deep learning</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Math/">Math</a>
+                
+                  <a class="hover-with-bg" href="/tags/Deep-learning/">Deep learning</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "GAN&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

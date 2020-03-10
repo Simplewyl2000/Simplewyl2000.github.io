@@ -186,9 +186,20 @@
 <h4 id="对象头部"><a href="#对象头部" class="headerlink" title="对象头部"></a>对象头部</h4><p>对象头部包括 _OBJECT_HEADER 和 可选头部，对于不同的object可选头部是不一样的。</p>
 <p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200307101614544.png" srcset="/img/loading.gif" alt="image-20200307101614544"></p>
 <p>先看一下_OBJECT_HEADER </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dt(&quot;_OBJECT_HEADER&quot;)</span><br><span class="line">&#39;_OBJECT_HEADER&#39; (56 bytes)</span><br><span class="line">0x0 : PointerCount [&#39;long long&#39;]</span><br><span class="line">0x8 : HandleCount [&#39;long long&#39;]</span><br><span class="line">0x8 : NextToFree [&#39;pointer64&#39;, [&#39;void&#39;]]</span><br><span class="line">0x10 : Lock [&#39;_EX_PUSH_LOCK&#39;]</span><br><span class="line">0x18 : TypeIndex [&#39;unsigned char&#39;]</span><br><span class="line">0x19 : TraceFlags [&#39;unsigned char&#39;]</span><br><span class="line">0x1a : InfoMask [&#39;unsigned char&#39;]</span><br><span class="line">0x1b : Flags [&#39;unsigned char&#39;]</span><br><span class="line">0x20 : ObjectCreateInfo [&#39;pointer64&#39;, [&#39;_OBJECT_CREATE_INFORMATION&#39;]]</span><br><span class="line">0x20 : QuotaBlockCharged [&#39;pointer64&#39;, [&#39;void&#39;]]</span><br><span class="line">0x28 : SecurityDescriptor [&#39;pointer64&#39;, [&#39;void&#39;]]</span><br><span class="line">0x30 : Body [&#39;_QUAD&#39;]</span><br></pre></td></tr></table></figure>
-
-<p>具体含义:</p>
+<pre><code>&gt;&gt;&gt; dt(&quot;_OBJECT_HEADER&quot;)
+&#39;_OBJECT_HEADER&#39; (56 bytes)
+0x0 : PointerCount [&#39;long long&#39;]
+0x8 : HandleCount [&#39;long long&#39;]
+0x8 : NextToFree [&#39;pointer64&#39;, [&#39;void&#39;]]
+0x10 : Lock [&#39;_EX_PUSH_LOCK&#39;]
+0x18 : TypeIndex [&#39;unsigned char&#39;]
+0x19 : TraceFlags [&#39;unsigned char&#39;]
+0x1a : InfoMask [&#39;unsigned char&#39;]
+0x1b : Flags [&#39;unsigned char&#39;]
+0x20 : ObjectCreateInfo [&#39;pointer64&#39;, [&#39;_OBJECT_CREATE_INFORMATION&#39;]]
+0x20 : QuotaBlockCharged [&#39;pointer64&#39;, [&#39;void&#39;]]
+0x28 : SecurityDescriptor [&#39;pointer64&#39;, [&#39;void&#39;]]
+0x30 : Body [&#39;_QUAD&#39;]</code></pre><p>具体含义:</p>
 <ul>
 <li><p>pointercounter：所有的对该应用的引用，包括内核引用</p>
 </li>
@@ -210,9 +221,20 @@
 </blockquote>
 <p>其中的process handle table 就是学到过的进程中对于资源的一些句柄表(类似于文件打开表，但不限于文件)，比如开了一个文件，文件object的句柄就会存在这个进程中，当然我们也知道，我们打开文件之后不仅仅是在当前进程的handle table中加入handle，而且要在系统打开表中加入这个handle对吧，而这个系统打开表，就是之后要提到的pool。</p>
 <p>object type 的结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dt(&quot;_OBJECT_TYPE&quot;)</span><br><span class="line">&#39;_OBJECT_TYPE&#39; (208 bytes)</span><br><span class="line">0x0 : TypeList [&#39;_LIST_ENTRY&#39;]</span><br><span class="line">0x10 : Name [&#39;_UNICODE_STRING&#39;]</span><br><span class="line">0x20 : DefaultObject [&#39;pointer64&#39;, [&#39;void&#39;]]</span><br><span class="line">0x28 : Index [&#39;unsigned char&#39;]</span><br><span class="line">0x2c : TotalNumberOfObjects [&#39;unsigned long&#39;]</span><br><span class="line">0x30 : TotalNumberOfHandles [&#39;unsigned long&#39;]</span><br><span class="line">0x34 : HighWaterNumberOfObjects [&#39;unsigned long&#39;]</span><br><span class="line">0x38 : HighWaterNumberOfHandles [&#39;unsigned long&#39;]</span><br><span class="line">0x40 : TypeInfo [&#39;_OBJECT_TYPE_INITIALIZER&#39;]</span><br><span class="line">0xb0 : TypeLock [&#39;_EX_PUSH_LOCK&#39;]</span><br><span class="line">0xb8 : Key [&#39;unsigned long&#39;]</span><br><span class="line">0xc0 : CallbackList [&#39;_LIST_ENTRY&#39;]</span><br></pre></td></tr></table></figure>
-
-<p>其中:</p>
+<pre><code>&gt;&gt;&gt; dt(&quot;_OBJECT_TYPE&quot;)
+&#39;_OBJECT_TYPE&#39; (208 bytes)
+0x0 : TypeList [&#39;_LIST_ENTRY&#39;]
+0x10 : Name [&#39;_UNICODE_STRING&#39;]
+0x20 : DefaultObject [&#39;pointer64&#39;, [&#39;void&#39;]]
+0x28 : Index [&#39;unsigned char&#39;]
+0x2c : TotalNumberOfObjects [&#39;unsigned long&#39;]
+0x30 : TotalNumberOfHandles [&#39;unsigned long&#39;]
+0x34 : HighWaterNumberOfObjects [&#39;unsigned long&#39;]
+0x38 : HighWaterNumberOfHandles [&#39;unsigned long&#39;]
+0x40 : TypeInfo [&#39;_OBJECT_TYPE_INITIALIZER&#39;]
+0xb0 : TypeLock [&#39;_EX_PUSH_LOCK&#39;]
+0xb8 : Key [&#39;unsigned long&#39;]
+0xc0 : CallbackList [&#39;_LIST_ENTRY&#39;]</code></pre><p>其中:</p>
 <p>Name: 对象的Unicode编码</p>
 <p>TotalNumberOfObjects：该object type对应的类型对象在系统中的数目</p>
 <p>TotalNumberOfHandles：对于该种类型对象的总handler个数。</p>
@@ -220,21 +242,30 @@
 <p>Key: 这是个很关键的数据，这个就是我们之后要提到的tag，一个四字节的tag来标识不同的object，比如proc代表process类型object</p>
 <p>我们可以通过objectscan来看对应的OBJECT_TYPE在内存中的偏移</p>
 <p>eg:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python vol.py -f win7x64cmd.dd --profile&#x3D;Win7SP0x64 objtypescan</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="池分配"><a href="#池分配" class="headerlink" title="池分配"></a>池分配</h3><p>我感觉，windows 的 pool 就是内核的堆吧，跟堆类似，在这段内存存的时候前面都会带一个_POOL_HEADER</p>
+<pre><code> python vol.py -f win7x64cmd.dd --profile=Win7SP0x64 objtypescan</code></pre><h3 id="池分配"><a href="#池分配" class="headerlink" title="池分配"></a>池分配</h3><p>我感觉，windows 的 pool 就是内核的堆吧，跟堆类似，在这段内存存的时候前面都会带一个_POOL_HEADER</p>
 <p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200307111031984.png" srcset="/img/loading.gif" alt="image-20200307111031984"></p>
 <p>再看一下_POOL_HEADER的结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dt(&quot;_POOL_HEADER&quot;)</span><br><span class="line">&#39;_POOL_HEADER&#39; (16 bytes)</span><br><span class="line">0x0 : BlockSize [&#39;BitField&#39;, &#123;&#39;end_bit&#39;: 24,</span><br><span class="line"> &#39;start_bit&#39;: 16, &#39;native_type&#39;: &#39;unsigned long&#39;&#125;]</span><br><span class="line">0x0 : PoolIndex [&#39;BitField&#39;, &#123;&#39;end_bit&#39;: 16,</span><br><span class="line"> &#39;start_bit&#39;: 8, &#39;native_type&#39;: &#39;unsigned long&#39;&#125;]</span><br><span class="line">0x0 : PoolType [&#39;BitField&#39;, &#123;&#39;end_bit&#39;: 32,</span><br><span class="line"> &#39;start_bit&#39;: 24, &#39;native_type&#39;: &#39;unsigned long&#39;&#125;]</span><br><span class="line">0x0 : PreviousSize [&#39;BitField&#39;, &#123;&#39;end_bit&#39;: 8,</span><br><span class="line"> &#39;start_bit&#39;: 0, &#39;native_type&#39;: &#39;unsigned long&#39;&#125;]</span><br><span class="line">0x0 : Ulong1 [&#39;unsigned long&#39;]</span><br><span class="line">0x4 : PoolTag [&#39;unsigned long&#39;]</span><br><span class="line">0x8 : AllocatorBackTraceIndex [&#39;unsigned short&#39;]</span><br><span class="line">0x8 : ProcessBilled [&#39;pointer64&#39;, [&#39;_EPROCESS&#39;]]</span><br><span class="line">0xa : PoolTagHash [&#39;unsigned short&#39;]</span><br></pre></td></tr></table></figure>
-
-<p>其中，</p>
+<pre><code>&gt;&gt;&gt; dt(&quot;_POOL_HEADER&quot;)
+&#39;_POOL_HEADER&#39; (16 bytes)
+0x0 : BlockSize [&#39;BitField&#39;, {&#39;end_bit&#39;: 24,
+ &#39;start_bit&#39;: 16, &#39;native_type&#39;: &#39;unsigned long&#39;}]
+0x0 : PoolIndex [&#39;BitField&#39;, {&#39;end_bit&#39;: 16,
+ &#39;start_bit&#39;: 8, &#39;native_type&#39;: &#39;unsigned long&#39;}]
+0x0 : PoolType [&#39;BitField&#39;, {&#39;end_bit&#39;: 32,
+ &#39;start_bit&#39;: 24, &#39;native_type&#39;: &#39;unsigned long&#39;}]
+0x0 : PreviousSize [&#39;BitField&#39;, {&#39;end_bit&#39;: 8,
+ &#39;start_bit&#39;: 0, &#39;native_type&#39;: &#39;unsigned long&#39;}]
+0x0 : Ulong1 [&#39;unsigned long&#39;]
+0x4 : PoolTag [&#39;unsigned long&#39;]
+0x8 : AllocatorBackTraceIndex [&#39;unsigned short&#39;]
+0x8 : ProcessBilled [&#39;pointer64&#39;, [&#39;_EPROCESS&#39;]]
+0xa : PoolTagHash [&#39;unsigned short&#39;]</code></pre><p>其中，</p>
 <p>BlockSize: 这个是指分配的空间大小，包括一堆header，这个倒是跟堆一样，头中大小是包含整个的。</p>
 <p>PoolType: 指分配了哪种内存，分页或是不分页</p>
 <p>PoolTag: 这就是我们之前说到的tag，相当于是类的一个标记吧，我们在做psscan的时候就是扫描内存找这个玩意，然后找到proc，确定这里是process project，在win8之后，这个四字节的tag其中会有一个叫做protected bit的东西。</p>
-<h4 id="分配对象的API"><a href="#分配对象的API" class="headerlink" title="分配对象的API"></a>分配对象的API</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">PVOID <span class="title">ExAllocatePoolWithTag</span><span class="params">( _In_ POOL_TYPE PoolType, </span></span></span><br><span class="line"><span class="function"><span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">                 			 In_ SIZE_T NumberOfBytes, _In_ ULONG Tag )</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="分配对象的API"><a href="#分配对象的API" class="headerlink" title="分配对象的API"></a>分配对象的API</h4><pre><code class="C">PVOID ExAllocatePoolWithTag( _In_ POOL_TYPE PoolType, 
 
+                              In_ SIZE_T NumberOfBytes, _In_ ULONG Tag );</code></pre>
 <p>PoolType是指分配类型，是分页还是不分页，</p>
 <blockquote>
 <p>As previously shown, most, but not all, executive object types are allocated using nonpageable memory—and you can always make the distinction by looking at a particular object’s _OBJECT_TYPE.TypeInfo.PoolType member.</p>
@@ -269,9 +300,7 @@
 <p>这里讲一下之前提到的protected bit，这是为了保证操作系统不会误操作而提供的，当在释放这个对象的时候，必须提供跟分配时候一样的的protected bit，防止误操作，感觉挺迷的这个操作，详见书P130</p>
 <p>注意到，这个tag实际上是用于Windbg的(实际上去掉或者修改这些并不会影响运行), 所以Windbg中给出了对pooltag的表述，我们可以看每个版本的windows的dbg下的pooltag.txt, 这个文件描述了该版本windows下的pooltag</p>
 <p>还有对应的工具PoolMon，用来监视系统中的pooltag，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\WinDDK\7600.16385.1\tools\Other\i386&gt; poolmon.exe -b</span><br></pre></td></tr></table></figure>
-
-<p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200307120552514.png" srcset="/img/loading.gif" alt="image-20200307120552514"></p>
+<pre><code>C:\WinDDK\7600.16385.1\tools\Other\i386&gt; poolmon.exe -b</code></pre><p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200307120552514.png" srcset="/img/loading.gif" alt="image-20200307120552514"></p>
 <p>一段解释(翻译不动了，好累啊我晕了)：</p>
 <p>As you can see, CM31 ranks highest in byte count. Since the system started, there have been 169,392 calls to ExAllocatePoolWithTag for the CM31 tag, and 153,744 of them have been freed. This leaves the difference of 15,648 currently allocated blocks, together consuming 74,838,016 bytes (approximately 75MB) of memory. On average, that’s 4,782 bytes per allocation</p>
 <p>注意到，这个poolmon是用于正在运行的机器上的，但如果我们只有一段内存快照可以么？也是可以的，因为里面有poolmon需要的 kernel debugger data block ( <strong>_KDDEBUGGER_DATA64</strong>) ，记住这个名词！</p>
@@ -283,13 +312,27 @@
 <hr>
 <p>继续，</p>
 <p>这个key就是tag哈, 我们的使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python vol.py -f win7x64.dd pooltracker</span><br><span class="line">					 --profile&#x3D;Win7SP0x64</span><br><span class="line">					 --tags&#x3D;Proc,File,Driv,Thre</span><br></pre></td></tr></table></figure>
-
-<p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200307121308812.png" srcset="/img/loading.gif" alt="image-20200307121308812"></p>
+<pre><code>$ python vol.py -f win7x64.dd pooltracker
+                     --profile=Win7SP0x64
+                     --tags=Proc,File,Driv,Thre</code></pre><p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200307121308812.png" srcset="/img/loading.gif" alt="image-20200307121308812"></p>
 <p>接下来就说了怎么去写一个poolscanner，这比较简单，详见P136</p>
 <p>这里给个demo</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="class"><span class="keyword">class</span> <span class="title">PoolScanProcess</span><span class="params">(poolscan.PoolScanner)</span>:</span></span><br><span class="line"><span class="number">2</span> <span class="string">"""Pool scanner for process objects"""</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span> <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, address_space, **kwargs)</span>:</span></span><br><span class="line"><span class="number">5</span> 	poolscan.PoolScanner.__init__(self, address_space, **kwargs)</span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span> 	self.struct_name = <span class="string">"_EPROCESS"</span></span><br><span class="line"><span class="number">8</span> 	self.object_type = <span class="string">"Process"</span></span><br><span class="line"><span class="number">9</span> 	self.pooltag = obj.VolMagic(address_space).ProcessPoolTag.v()</span><br><span class="line"><span class="number">10</span>	size = self.address_space.profile.get_obj_size(<span class="string">"_EPROCESS"</span>)</span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span> 	self.checks = [</span><br><span class="line"><span class="number">13</span>	 (<span class="string">'CheckPoolSize'</span>, dict(condition = <span class="keyword">lambda</span> x: x &gt;= size)),</span><br><span class="line"><span class="number">14</span>	 (<span class="string">'CheckPoolType'</span>, dict(non_paged = <span class="literal">True</span>, free = <span class="literal">True</span>)),</span><br><span class="line"><span class="number">15</span> 	 (<span class="string">'CheckPoolIndex'</span>, dict(value = <span class="number">0</span>)),</span><br><span class="line"><span class="number">16</span> 	]</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">1 class PoolScanProcess(poolscan.PoolScanner):
+2 &quot;&quot;&quot;Pool scanner for process objects&quot;&quot;&quot;
+3
+4 def __init__(self, address_space, **kwargs):
+5     poolscan.PoolScanner.__init__(self, address_space, **kwargs)
+6
+7     self.struct_name = &quot;_EPROCESS&quot;
+8     self.object_type = &quot;Process&quot;
+9     self.pooltag = obj.VolMagic(address_space).ProcessPoolTag.v()
+10    size = self.address_space.profile.get_obj_size(&quot;_EPROCESS&quot;)
+11
+12     self.checks = [
+13     (&#39;CheckPoolSize&#39;, dict(condition = lambda x: x &gt;= size)),
+14     (&#39;CheckPoolType&#39;, dict(non_paged = True, free = True)),
+15      (&#39;CheckPoolIndex&#39;, dict(value = 0)),
+16     ]</code></pre>
 <p><img src="C:%5CUsers%5C79916%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200307121706505.png" srcset="/img/loading.gif" alt="image-20200307121706505"></p>
 <blockquote>
 <p>If you scan using a physical address space, the code starts looking for the four-byte pool tag at offset 0 of the memory dump file and continues until it reaches the end of the file. Otherwise, if a virtual address space is selected, it enumerates and scans all pages in the kernel’s page table</p>
@@ -320,9 +363,12 @@
 </blockquote>
 <p>大表在小表旁边</p>
 <p>看一下大表的结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dt(&quot;_POOL_TRACKER_BIG_PAGES&quot;)</span><br><span class="line">&#39;_POOL_TRACKER_BIG_PAGES&#39; (24 bytes)</span><br><span class="line">0x0 : Va [&#39;pointer64&#39;, [&#39;void&#39;]]</span><br><span class="line">0x8 : Key [&#39;unsigned long&#39;]</span><br><span class="line">0xc : PoolType [&#39;unsigned long&#39;]</span><br><span class="line">0x10 : NumberOfBytes [&#39;unsigned long long&#39;]</span><br></pre></td></tr></table></figure>
-
-<p>va就是大块的位置</p>
+<pre><code>&gt;&gt;&gt; dt(&quot;_POOL_TRACKER_BIG_PAGES&quot;)
+&#39;_POOL_TRACKER_BIG_PAGES&#39; (24 bytes)
+0x0 : Va [&#39;pointer64&#39;, [&#39;void&#39;]]
+0x8 : Key [&#39;unsigned long&#39;]
+0xc : PoolType [&#39;unsigned long&#39;]
+0x10 : NumberOfBytes [&#39;unsigned long long&#39;]</code></pre><p>va就是大块的位置</p>
 <blockquote>
 <p>Keep in mind that although this structure stores the pool tag, it is in a completely different location from the allocation, which is pointed to by Va. For small allocations, the pool tag is contained within the allocation (recall what you saw in Figure 5-4).</p>
 </blockquote>
@@ -350,7 +396,7 @@
               <span>
                 <i class="iconfont icon-inbox"></i>
                 
-                  <a class="hover-with-bg" href="/categories/Memory-Forensics/">Memory Forensics</a>
+                  <a class="hover-with-bg" href="/categories/Memory-forensics/">Memory forensics</a>
                   &nbsp;
                 
               </span>&nbsp;&nbsp;
@@ -359,9 +405,9 @@
               <span>
                 <i class="iconfont icon-tag"></i>
                 
-                  <a class="hover-with-bg" href="/tags/windows/">windows</a>
+                  <a class="hover-with-bg" href="/tags/Windows/">Windows</a>
                 
-                  <a class="hover-with-bg" href="/tags/system/">system</a>
+                  <a class="hover-with-bg" href="/tags/System/">System</a>
                 
               </span>
             

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>PDF structure - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Wednesday, February 26th 2020, 8:28 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      4 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="PDF文件结构解析"><a href="#PDF文件结构解析" class="headerlink" title="PDF文件结构解析"></a>PDF文件结构解析</h1><p>发现国内对于PDF文件的解析比较少，最近看了一篇PDF malware的文章，正好在这里记录一下PDF文件结构的学习。</p>
+<p>先给出官方文档:<a href="https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf" target="_blank" rel="noopener">传送门</a></p>
+<h3 id="大体结构"><a href="#大体结构" class="headerlink" title="大体结构"></a>大体结构</h3><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302203235953.png" srcset="/img/loading.gif" alt="image-20200302203235953"></p>
+<p>以上就是PDF的四个基本结构，先大概叙述一下这几个的作用</p>
+<p>Header：负责表示版本号，Header的格式基本是固定的</p>
+<p>Body：这是PDF的主要content的位置</p>
+<p>Xref：用于各个object的随机访问，存的是各个object的开始位置距离文件开始的偏移，object是PDF一个存储内容unit。</p>
+<p>Trailer: 这是PDF解释器的入口，存了一些入口信息，比如root， info(关于整个文件的信息比如object数目)，Xref的偏移位置等等。</p>
+<p><strong>工作流程</strong></p>
+<p>其主要的工作流程是从Trailer(虽然他在文件的最后，但确实是从这里开始)开始，读取相关信息，找到root，之后遍历这棵树，根据节点的信息和Xref提供的偏移来定位一个一个object之后输出。</p>
+<p>我们按照工作流程介绍一下各个部分叭。</p>
+<h3 id="Trailer"><a href="#Trailer" class="headerlink" title="Trailer"></a>Trailer</h3><p>先给出一个Trailer的示例：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302204133258.png" srcset="/img/loading.gif" alt="image-20200302204133258"></p>
+<p>其中的 &amp;lt 和 &amp;gt分别代表的是&lt; 和 &gt;，一个trailer由一&lt;&lt;和&gt;&gt; 包裹起来的。</p>
+<p>看看其中包含的信息</p>
+<p>我们从后往前看</p>
+<p><strong>EOF:</strong>文件结束符，这个就没什么好说的8</p>
+<p><strong>startxref 和 24212</strong>：startxref这是指明接下来的一行是xref的偏移位置</p>
+<p>之后我们看一下trailer内部的信息、</p>
+<p>/Size(整数类型): 指明了在xref中的object的个数，包括更新与之前的总个数</p>
+<p>/Prev(整数类型): 当不止一个Xref表的时候(因为更新，所以往往不止一个Xref)，这个值是前一个Xref表的偏移位置</p>
+<p>/Root(字典类型)：指出了文件类型object树的根节点是哪一个object，从这个object往下是可以得到整个树的。</p>
+<p>/Encryption(字典类型): 指出了文件的加密字典(关于这个我也没懂，详见官方文档)</p>
+<p>/Info(字典类型): 指明那个object存的是文件的信息</p>
+<p>/ID(数组)： 用两个字节的未加密数据来指明这个文件的ID，从而不需要解密之后再来判断是不是打开的是我们想要的文件。</p>
+<h3 id="Xref"><a href="#Xref" class="headerlink" title="Xref"></a>Xref</h3><p>同样的，我们从一个例子入手</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302210607574.png" srcset="/img/loading.gif" alt="image-20200302210607574"></p>
+<p>我们打开可以看到，其中…是省略了许多，要不然太长了。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302210633069.png" srcset="/img/loading.gif" alt="image-20200302210633069"></p>
+<p>上图的数据用notepad++打开pdf就可以看到。</p>
+<p>我们从上往下看一下</p>
+<p>首先</p>
+<ul>
+<li><p>xref的意思是下面我要说明交叉引用表了。</p>
+</li>
+<li><p>0 233的意思是</p>
+<p>这个表从0号object开始，总共有233个object。</p>
+</li>
+<li><p>再接下来的0000000000 65535 f</p>
+<p>先介绍一下结构，第一个是该object的偏移位置，第二是更新号，第三个是占用状态。</p>
+<p>第一个object的版本号永远是65535，其余所有的刚开始的时候版本号都是0</p>
+<p>f代表是free，没有被占用是可以删除的，n代表不可以删除，正在使用。</p>
+<ul>
+<li><p>其中，所有的f是构成一个单向循环链表的，当是f的时候第一个值不再代表偏移，而是下一个free object 的序号，最后一个又指回0。如下图</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302211706553.png" srcset="/img/loading.gif" alt="image-20200302211706553"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Body"><a href="#Body" class="headerlink" title="Body"></a>Body</h3><p>首先需要说一下PDF中的数据结构，总共是八大类，包括布尔，数字，数组等等。当然所有这些都是object。</p>
+<p>这里就不一一列举了，有需要的可以看一下文档。</p>
+<p>简单说一下Stream和Indirect Object。</p>
+<h4 id="stream"><a href="#stream" class="headerlink" title="stream"></a>stream</h4><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302212108250.png" srcset="/img/loading.gif" alt="image-20200302212108250"></p>
+<p>steam往往是用来存大块数据如图片这样的。</p>
+<p>length: 说明有多少字节在这个流中</p>
+<p>type：流中文件的细节</p>
+<p>Filter：指定一个filter来处理流中的数据</p>
+<p>DecoderParms: filter的参数</p>
+<p>以及一些其他的参数</p>
+<h4 id="Indirect-Object"><a href="#Indirect-Object" class="headerlink" title="Indirect Object"></a>Indirect Object</h4><p>这实际上不能说是一个数据类型，就是一个引用，硬要说的话有点像指针吧。</p>
+<p>首先要知道所有这些的基本数据只要给出标识号是都可以被当做indirect object的。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302213840317.png" srcset="/img/loading.gif" alt="image-20200302213840317"></p>
+<p>上面是一个基本的包含数字的obj</p>
+<p>他的引用是：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302213910875.png" srcset="/img/loading.gif" alt="image-20200302213910875"></p>
+<p>加上R即可。</p>
+<p>接下来再介绍一下Body的整体解雇，还记得我们之前提到的root么，就是这个树根</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302214011536.png" srcset="/img/loading.gif" alt="image-20200302214011536"></p>
+<p>其中的page tree就是包含的内容结构辣。</p>
+<p>其中root这个object的信息会有以下：</p>
+<ul>
+<li><p>/type：指的是节点类型, 在这里当然就是document catalog了</p>
+</li>
+<li><p>/version: 指的是PDF版本类型</p>
+</li>
+<li><p>/pagetree：指的是Pagetree 的根节点</p>
+</li>
+<li><p>其他(还挺多的，查查文档8)</p>
+</li>
+</ul>
+<p>接下来来看看pagetree的结构</p>
+<ul>
+<li>/type：在这里就是pages了</li>
+<li>/kids：在这里是数组，数组中存的是孩子节点的序号</li>
+<li>/parent：父节点</li>
+<li>/count：该节点下的后代节点个数</li>
+</ul>
+<p>看看一个pagetree的例子</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302214615468.png" srcset="/img/loading.gif" alt="image-20200302214615468"></p>
+<p>以上就是一些基本的知识啦，有什么问题还请指正，谢谢谢谢！</p>
+<p>原文:<a href="https://resources.infosecinstitute.com/pdf-file-format-basic-structure/#gref" target="_blank" rel="noopener">https://resources.infosecinstitute.com/pdf-file-format-basic-structure/#gref</a></p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Software-security/">Software security</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Software-security/">Software security</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "PDF structure&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

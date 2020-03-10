@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Heap overflow - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Tuesday, May 28th 2019, 6:16 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    2.5k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      8 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="堆溢出"><a href="#堆溢出" class="headerlink" title="堆溢出"></a>堆溢出</h1><p>​    堆是一块动态分配的内存，不同于栈，这是不能在编译的时候决定的。是在运行的时候申请的，所以有可能失败也有可能成功。使用完毕之后必须把内存还给操作系统，否则会导致内存泄露。栈只有 pop 和 push 两种操作，总是在“线性”变化，其管理机制也相对简单，所以，栈溢出的利用很容易掌握。与“整齐”的栈不同，堆往往显得“杂乱无章”。</p>
+<p><strong>堆块：</strong>出于性能的考虑，堆区的内存按不同大小组织成块，以堆块为单位进行标识，而不是传统的按字节标识。一个堆块包括两个部分：块首和块身。块首是一个堆块头部的几个字节，用来标识这个堆块自身的信息，例如，本块的大小、本块空闲还是占用等信息；块身是紧跟在块首后面的部分，也是最终分配给用户使用的数据区。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227232519069.png" srcset="/img/loading.gif" alt="image-20200227232519069"></p>
+<p><strong>堆表：</strong>堆表一般位于堆区的起始位置，用于索引堆区中所有堆块的重要信息，包括堆块的位置、堆块的大小、空闲还是占用等。堆表的数据结构决定了整个堆区的组织方式，是快速检索空闲块、保证堆分配效率的关键。堆表在设计时可能会考虑采用平衡二叉树等高级数据结构用于优化查找效率。现代操作系统的堆表往往不止一种数据结构</p>
+<p><strong>注意，堆表只索引空闲态的堆块</strong></p>
+<p>空表：空闲双向链表</p>
+<p>快表：快速单向链表</p>
+<p>小块：SIZE &lt; 1KB </p>
+<p>章</p>
+<p>堆溢出利用150 </p>
+<p>2</p>
+<p>大块：1KB ≤ SIZE &lt; 512KB </p>
+<p>巨块：SIZE ≥ 512KB</p>
+<p>来看看windows是怎么管理的：</p>
+<h4 id="空表"><a href="#空表" class="headerlink" title="空表"></a>空表</h4><p>堆区的开始用一个数组来指示128个表头（128个大小不同的表）</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227233451532.png" srcset="/img/loading.gif" alt="image-20200227233451532"></p>
+<p>大小规律就是：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227233504677.png" srcset="/img/loading.gif" alt="image-20200227233504677"></p>
+<p><strong>需要注意的是，空表索引的第一项（free[0]）所标识的空表相对比较特殊。这条双向链表链入了所有大于等于 1024 字节的堆块（小于 512KB）。这些堆块按照各自的大小在零号空表中升序地依次排列下去，您会在稍后发现这样组织的好处。</strong></p>
+<h4 id="快表"><a href="#快表" class="headerlink" title="快表"></a>快表</h4><p>快表是 Windows 用来加速堆块分配而采用的一种堆表。这里之所以把它叫做“快表”是因为这类单向链表中从来不会发生堆块合并（其中的空闲块块首被设置为占用态，用来防止堆块合并）。</p>
+<p>快表也有 128 条，组织结构与空表类似，只是其中的堆块按照单链表组织。快表总是被初始化为空，而且每条快表最多只有 4 个结点，故很快就会被填满。</p>
+<h3 id="堆的操作"><a href="#堆的操作" class="headerlink" title="堆的操作"></a>堆的操作</h3><h3 id="堆块分配"><a href="#堆块分配" class="headerlink" title="堆块分配"></a>堆块分配</h3><ol>
+<li>快表分配：寻找到大小匹配的空闲堆块、将其状态修改为占用态、把它从堆表中“卸下”、最后返回一个指向堆块块身的指针给程序使用</li>
+<li>空表分配：首先寻找最优的空闲块分配，若失败，则寻找次优的空闲块分配，即最小的能够满足要求的空闲块</li>
+<li>零号快表分配：故在分配时先从 free[0]反向查找最后一个块（即表中最大块），看能否满足要求，如果能满足要求，再正向搜索最小能够满足要求的空闲堆块进行分配（这就明白为什么零号空表要按照升序排列了）</li>
+</ol>
+<p>找零钱现象：就是无法匹配到最优的时候，拿个稍微大一些的，但是要切割，剩余的链入空表</p>
+<p>快表只有在精确匹配的时候才会分配</p>
+<h4 id="堆块合并"><a href="#堆块合并" class="headerlink" title="堆块合并"></a>堆块合并</h4><p>经过反复的申请与释放操作，堆区很可能变得“千疮百孔”，产生很多内存碎片。为了合理有效地利用内存，堆管理系统还要能够进行堆块合并操作，如图 5.1.4 所示。当堆管理系统发现两个空闲堆块彼此相邻的时候，就会进行堆块合并操作。堆块合并包括将两个块从空闲链表中“卸下”、合并堆块、调整合并后大块的块首信息（如大小等）将新块重新链入空闲链表。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227234923802.png" srcset="/img/loading.gif" alt="image-20200227234923802"></p>
+<p>看一下堆分配和合并对于三种不同类型的块的不同策略</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227235103905.png" srcset="/img/loading.gif" alt="image-20200227235103905"></p>
+<h2 id="来看点真实的"><a href="#来看点真实的" class="headerlink" title="来看点真实的"></a>来看点真实的</h2><p>Windows 中提供了许多类型的堆分配函数，您可以在 MSDN 中找到这些函数的详细说明。</p>
+<p>所有的堆分配函数最终都将使用位于 ntdll.dll 中的 RtlAllocateHeap()函数进行分配，这个函数也是在用户态能够看到的最底层的堆分配函数。所谓万变不离其宗，这个“宗”就是RtlAllocateHeap()。因此，研究 Windows 堆只要研究这个函数即可。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227235653097.png" srcset="/img/loading.gif" alt="image-20200227235653097"></p>
+<p>调试堆的时候不能用ollydbg， 因为会检测到使用了调试态</p>
+<p>调试态堆管理策略和常态堆管理策略有很大差异，集中体现在：</p>
+<p>（1）调试堆不使用快表，只用空表分配。</p>
+<p>（2）所有堆块都被加上了多余的 16 字节尾部用来防止溢出（防止程序溢出而不是堆溢出攻击），这包括 8 个字节的 0xAB 和 8 个字节的 0x00。 </p>
+<p>（3）块首的标志位不同。</p>
+<p><strong>来看一个具体的例子</strong></p>
+<h3 id="空表的过程"><a href="#空表的过程" class="headerlink" title="空表的过程"></a>空表的过程</h3><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228004210421.png" srcset="/img/loading.gif" alt="image-20200228004210421"></p>
+<p>tips：</p>
+<ol>
+<li><p>其中的__asm 是调用中断，为了让堆初始化好之后，再启用OD</p>
+</li>
+<li><p>系统是存在不同的堆区的，我们要首先获取操作堆区的句柄</p>
+<ol>
+<li><p>getprocessheap()获取特定堆区</p>
+</li>
+<li><p>malloc()使用特定堆区</p>
+</li>
+<li><p>heapcreate()创建新堆区</p>
+<p>我们这里创建了新的堆区，是为了防止之前的堆区被拆得支离破碎不好观察</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>在拿到这个句柄之后去对应的内存 区域看堆区，这里是0x00520000 ，从 0x00520000 开始，堆表中包含的信息依次是段表索引（Segment List）、虚表索引(Virtual Allocation list)、空表使用标识（freelist usage bitmap）和空表索引区</p>
+<p>我们主要看的是偏移 0x178 处的空表索引区</p>
+<p>当一个堆刚刚被初始化时，它的堆块状况是非常简单的。</p>
+<p>（1）只有一个空闲态的大块，这个块被称做“尾块”。</p>
+<p>（2）位于堆偏移 0x0688 处（启用快表后这个位置将是快表），这里算上堆基址就是0x00520688。 </p>
+<p>（3）Freelist[0]指向“尾块”。</p>
+<p>（4）除零号空表索引外，其余各项索引都指向自己，这意味着其余所有的空闲链表中都没</p>
+<p>有空闲块。</p>
+<p>看一下堆块的结构</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228005748862.png" srcset="/img/loading.gif" alt="image-20200228005748862"></p>
+<p>这个是占用块的结构，空闲块是一致的，只不过用了8个字节来做前后指针</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228005856979.png" srcset="/img/loading.gif" alt="image-20200228005856979"></p>
+<p>（1）实际上这个堆块开始于 0x00520680，一般引用堆块的指针都会跃过 8 字节的块首，直接指向数据区。</p>
+<p>（2）尾块目前的大小为 0x0130，计算单位是 8 个字节(分配不满八字节则按八字节分配，也就是说八字节是最小分配单位)，也就是 0x980 字节。</p>
+<p>（3）注意：堆块的大小是包含块首在内的。</p>
+<p>在这个例子中就是这样的：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228005940181.png" srcset="/img/loading.gif" alt="image-20200228005940181"></p>
+<p>注意，<strong>快表不是所有的堆区都有的</strong></p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228010014227.png" srcset="/img/loading.gif" alt="image-20200228010014227"></p>
+<p>之后进行我们的分配策略</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228010228801.png" srcset="/img/loading.gif" alt="image-20200228010228801"></p>
+<p>这是实际分配结果：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228010237913.png" srcset="/img/loading.gif" alt="image-20200228010237913"></p>
+<p>​    关于怎么从哪里切割这一块下来，以及之后的大块是怎样的的，这里书上没有提到，但是根据之前说的和自己的理解，应该是直接就用大块的开始切下自己需要的，然后剩下的还就是大块。所以也可以看到，图中的6个堆区域分配都是连续的，而且之后跟的是大块</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228010354895.png" srcset="/img/loading.gif" alt="image-20200228010354895"></p>
+<p>之后是释放：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228011104330.png" srcset="/img/loading.gif" alt="image-20200228011104330"></p>
+<p>​    大家可以发现，这三个释放不是连续的，所以不会发生合并，从下图中可以看到，这三个块已经分配到三个链中去了。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228011520282.png" srcset="/img/loading.gif" alt="image-20200228011520282"></p>
+<p>然后存虚表list的位置已经出现了新的链！(一开始是只有free[0]的)</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228012051757.png" srcset="/img/loading.gif" alt="image-20200228012051757"></p>
+<p>之后的一步就是合并了，因为我们把h4 free了</p>
+<p>首先将3个相邻的块摘下，重新计算大小</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228012630724.png" srcset="/img/loading.gif" alt="image-20200228012630724"></p>
+<p>连续区域并起来辣！</p>
+<p>可以看到，合并只修改了块首的数据，原块的块身基本没有发生变化。注意合并后的新块大小已经被修改为 0x0008，其空表指针指向 0x005201B8，也就是 freelist[8]。这时，在空表索引区观察一下，如图 5.2.15 所示。</p>
+<p>可以看到：</p>
+<p>（1）在 0x00520188 处的 freelist[2]，原来标识的空表中有两个空闲块 h1 和 h3，而现在只剩下 h1，因为 h3 在合并时被摘下了。</p>
+<p>（2）在 0x00520198 处的 freelist[4]，原来标识的空表中有一个空闲块 h5，现在被改为指向自身，因为 h5 在合并时被摘下了。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228012747545.png" srcset="/img/loading.gif" alt="image-20200228012747545"></p>
+<p>接下来我们看一下快表</p>
+<h3 id="快表的过程"><a href="#快表的过程" class="headerlink" title="快表的过程"></a>快表的过程</h3><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228013036267.png" srcset="/img/loading.gif" alt="image-20200228013036267"></p>
+<p>需要注意的是程序在使用快表之后堆结构也会发生一些变化，其中最为主要的变化是“尾块”不在位于堆 0x0688 偏移处了，这个位置被快表霸占。从偏移 0x0178 处的空表索引区也可以看出这一点</p>
+<p>注意啊我们现在来区分几个概念</p>
+<p>快表的指示位置：688</p>
+<p>空表的指示位置:   178</p>
+<p>空表的实际位置：688(无快表的时候)， 有快表就要看178一开始的指示的尾块位置了</p>
+<p>快表的实际位置：没必要的，因为就是从大空表上拿下来的</p>
+<p>我们可以看到h2,h3,h4分别申请了8，16，24，之后释放是回到快表中去的。回去之后的状态：</p>
+<p>注意块首的区别就在于这是一个单向链表。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200228013831097.png" srcset="/img/loading.gif" alt="image-20200228013831097"></p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Software-security/">Software security</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/System/">System</a>
+                
+                  <a class="hover-with-bg" href="/tags/Software-security/">Software security</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Heap overflow&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

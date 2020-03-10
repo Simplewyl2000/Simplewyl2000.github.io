@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Network layer - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Tuesday, November 26th 2019, 10:28 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    859 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      3 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="网络层要点"><a href="#网络层要点" class="headerlink" title="网络层要点"></a>网络层要点</h1><h4 id="路由器缓冲区大小设置"><a href="#路由器缓冲区大小设置" class="headerlink" title="路由器缓冲区大小设置"></a>路由器缓冲区大小设置</h4><p>B = RTT *R</p>
+<p>对于N通道</p>
+<p>B = RTT*R/((N)^1/2)</p>
+<h4 id="IP-数据报格式相关位"><a href="#IP-数据报格式相关位" class="headerlink" title="IP 数据报格式相关位"></a>IP 数据报格式相关位</h4><ul>
+<li>总长度: 16位，但是由于在传输的过程中不能大于MTU，所以总长度大于MTU的会被切片，在发送之前会使用ICMP进行对链路层MTU进行测试，总长度是切片之后的长度</li>
+<li>首部长度:首部长度共四位，以<strong>32位即4个字节</strong>为单位，记录了首部的长度，总长度减去首部为数据长度</li>
+<li>标识: 是对数据报进行重组用的ID</li>
+<li>标志: DF=0 -&gt;可以分片, MF=1-&gt;表示后面还有分片</li>
+<li><strong>片偏移</strong>：占13位，但如何表示总长度为16位的呢，片偏移的单位是<strong>8个字节</strong>，所以不足8个字节的需要填充</li>
+<li>首部校验和：是首部的！！无数据部分</li>
+</ul>
+<h4 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>网络号</th>
+<th>开始</th>
+<th>最后</th>
+<th>主机号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A类(0开头)</td>
+<td>8位 共2^7-2</td>
+<td>1</td>
+<td>126</td>
+<td>24位 2^24-2</td>
+</tr>
+<tr>
+<td>B类(10开头)</td>
+<td>16位</td>
+<td>128.1</td>
+<td>191.255</td>
+<td>16位 65534</td>
+</tr>
+<tr>
+<td>C类(110开头)</td>
+<td>24位</td>
+<td>192.0.1</td>
+<td>223.255.255</td>
+<td>8位 254</td>
+</tr>
+</tbody></table>
+<h4 id="DHCP"><a href="#DHCP" class="headerlink" title="DHCP"></a>DHCP</h4><p>DHCP不只是能获得IP地址，还可以获得网关地址和DNS地址，子网掩码等相关信息</p>
+<h4 id="NAT中常见的本地地址"><a href="#NAT中常见的本地地址" class="headerlink" title="NAT中常见的本地地址"></a>NAT中常见的本地地址</h4><p>10/8</p>
+<p>172.16/12</p>
+<p>192.168/16</p>
+<p>见到这几个要联想到直接是NAT</p>
+<h4 id="IPV4-与-IPV6"><a href="#IPV4-与-IPV6" class="headerlink" title="IPV4 与 IPV6"></a>IPV4 与 IPV6</h4><p>IPV6 </p>
+<ol>
+<li>无检查和，中间阶段无需计算</li>
+<li>中间节点不再负责分片和重组 ？？？</li>
+<li>首部长度固定，加速中间节点转发</li>
+</ol>
+<h4 id="选路算法"><a href="#选路算法" class="headerlink" title="选路算法"></a>选路算法</h4><p>地杰斯特拉出现的问题</p>
+<h5 id="OSPF-是一个协议的名称，在此共享链路状态的协议下有链路状态选路。选路算法是迪杰斯特拉"><a href="#OSPF-是一个协议的名称，在此共享链路状态的协议下有链路状态选路。选路算法是迪杰斯特拉" class="headerlink" title="OSPF 是一个协议的名称，在此共享链路状态的协议下有链路状态选路。选路算法是迪杰斯特拉"></a><strong>OSPF</strong> 是一个协议的名称，在此共享链路状态的协议下有链路状态选路。选路算法是迪杰斯特拉</h5><p>OSPF：</p>
+<ol>
+<li>干什么: 向本自治系统中所有的路由器发消息</li>
+<li>发什么: 发的是相邻路由器节点的链路状态</li>
+<li>什么时候发: 链路状态变化的时候或者定时发送</li>
+<li>最后结果: 大家都有了全网的拓扑结构图，全网范围一致</li>
+</ol>
+<p>优点:</p>
+<ol>
+<li>安全</li>
+<li>多条相同开销的路径</li>
+<li>单个AS中支持层次路由</li>
+</ol>
+<h5 id="距离向量选路算法：Internet上的DV算法：RIP协议"><a href="#距离向量选路算法：Internet上的DV算法：RIP协议" class="headerlink" title="距离向量选路算法：Internet上的DV算法：RIP协议"></a>距离向量选路算法：Internet上的DV算法：RIP协议</h5><p>通过<strong>B-F公式</strong></p>
+<p>每个节点只知道自己到其他节点的费用，以及接收其他节点的消息来进行迭代</p>
+<p>对于坏消息传的慢这个问题的理解：</p>
+<ol>
+<li>根本: <ol>
+<li>链路费用的变化无法直接同步到各个节点上去, 有些节点的距离保留着历史信息</li>
+<li>在链路费用发生变化的时候，是通过本地先保存的拓扑结构更新距离向量，若变化则通知这个变化，若不变则进入静止状态</li>
+</ol>
+</li>
+<li>关于毒性逆转:<ol>
+<li>若某节点是通过K节点到T节点的，则返回其直接到T节点的距离为无穷。</li>
+<li>但是对于一般的无穷计数节点较多的时候，是无法解决的。</li>
+</ol>
+</li>
+<li>所以一般使用15跳来解决无穷计数问题</li>
+</ol>
+<h4 id="AS"><a href="#AS" class="headerlink" title="AS"></a>AS</h4><p>AS内部有自己的选路算法</p>
+<p>从一个AS到另一个AS:</p>
+<ol>
+<li>只有一个网关到达，则该网关向AS中路由器通知，其中路由器添加该项目</li>
+<li>多个网关到达，则选一个费用小的网关(热土豆)</li>
+</ol>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Network/">Network</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Network/">Network</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Network layer&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Smart Fuzz - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Sunday, June 2nd 2019, 12:10 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.2k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      4 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="文件类型漏洞挖掘与-Smart-Fuzz"><a href="#文件类型漏洞挖掘与-Smart-Fuzz" class="headerlink" title="文件类型漏洞挖掘与 Smart Fuzz"></a>文件类型漏洞挖掘与 Smart Fuzz</h1><p>​    不管是 IE 还是 Office，它们都有一个共同点，那就是用文件作为程序的主要输入。从本质上来说，这些软件都是按照事先约定好的数据结构对文件中不同的数据域进行解析，以决定用什么颜色、在什么位置显示这些数据。</p>
+<p>​    不少程序员会存在这样的惯性思维，即假设他们所使用的文件是严格遵守软件规定的数据格式的。这个假设在普通的使用过程中似乎没有什么不妥——毕竟用 Word 生成的.doc 文件一般不会存在什么非法的数据。</p>
+<p>​    但是攻击者往往会挑战程序员的假定假设，尝试对软件所约定的数据格式进行稍许修改，观察软件在解析这种“畸形文件”时是否会发生错误，发生什么样的错误，以及堆栈是否能被溢出等。</p>
+<p>​    文件格式 Fuzz（File Fuzz）就是这种利用“畸形文件”测试软件鲁棒性的方法。您可以在Internet 上找到许多用于 File Fuzz 的工具。抛开界面、运行平台等因素不管，一个 File Fuzz 工</p>
+<p>​    具大体的工作流程包括以下几步，如图 17.1.1 所示。</p>
+<p>（1）以一个正常的文件模板为基础，按照一定规则产生一批畸形文件。</p>
+<p>（2）将畸形文件逐一送入软件进行解析，并监视软件是否会抛出异常。</p>
+<p>（3）记录软件产生的错误信息，如寄存器状态、栈状态等。</p>
+<p>（4）用日志或其他 UI 形式向测试人员展示异常信息，以进一步鉴定这些错误是否能被利用。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200224180213008.png" srcset="/img/loading.gif" alt="image-20200224180213008"></p>
+<p>也就是说文件的fuzz的是指在一个基本的文件格式上进行篡改，得到畸形文件之后输入</p>
+<h3 id="Blind-和-Smart"><a href="#Blind-和-Smart" class="headerlink" title="Blind 和 Smart"></a>Blind 和 Smart</h3><p>通常 Smart Fuzz 包括三方</p>
+<ul>
+<li>面的特征：面向逻辑（Logic Oriented Fuzzing): 理解程序运行逻辑改动特定位置精准打击</li>
+<li>面向数据类型（Data Type Oriented Fuzzing）：面向数据类型测试是指能够识别不同的数据类型，并且能够针对目标数据的类型按照不同规则来生成畸形数据。</li>
+<li>对基于样本（Sample Based Fuzzing）：测试前首先构造一个合法的样本文件（也叫模板文件），这时样本文件里所有数据结构和逻辑必然都是合法的。然后以这个文件为模板，每次只改动一小部分数据和逻辑来生成畸形文件，这种方法也叫做“变异”（Mutation）。</li>
+</ul>
+<h3 id="介绍一下屁吃（peach）"><a href="#介绍一下屁吃（peach）" class="headerlink" title="介绍一下屁吃（peach）"></a>介绍一下屁吃（peach）</h3><p>首先介绍其五个部分：</p>
+<ol>
+<li><p><strong>GeneralConf:</strong></p>
+<p>这个是一些基本的设置比如导入的库这样的东西</p>
+</li>
+<li><p><strong>DataModel：</strong></p>
+<p>这个是比较有意思的东西，就是表示数据的结构，其中有一些数据类型比如字符或数字还有block，组合</p>
+<p>看个例子：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200224183334186.png" srcset="/img/loading.gif" alt="image-20200224183334186"></p>
+</li>
+</ol>
+<p>其中还可以使用一些函数比如计算校验值CRC或者是计算长度（sizeof), 例如：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200224183450731.png" srcset="/img/loading.gif" alt="image-20200224183450731"></p>
+<ol start="3">
+<li><p><strong>stateModel</strong>：</p>
+<p>​    StateModel 元素用于描述如何向目标程序发送／接收数据。StateModel 由至少一个 State 组成，并且用 initialState 指定第一个 State；每个 State 由至少一个 Action 组成，Action 用于定义StateModel 中的各种动作，动作类型由 type 来指定。Action 支持的动作类型包括 start、stop、open、close、input、output、call 等。</p>
+<p>​    我觉得就是一个动作序列吧。然后state是用来跳转的？</p>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200224183653922.png" srcset="/img/loading.gif" alt="image-20200224183653922"></p>
+<ol start="4">
+<li><p><strong>Agent</strong></p>
+<p>Agent用来设置代理监控程序</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200224183754228.png" srcset="/img/loading.gif" alt="image-20200224183754228"></p>
+</li>
+<li><p><strong>Test &amp; Run configuration</strong></p>
+</li>
+</ol>
+<p>之后就是使用之前定义好的一系列东西来定义一下test了，之后将test或者几个test run起来就可以了</p>
+<p>Test 元素用来定义一个测试的配置，包括一个 StateModel 和一个 Publisher，以及includeing/excluding、Agent 信息等。其中 StateModel 和 Publisher 是必须定义的，其他是可选定义的。下面是一个 Test 配置的例子。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200224183954285.png" srcset="/img/loading.gif" alt="image-20200224183954285"></p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200224183940191.png" srcset="/img/loading.gif" alt="image-20200224183940191"></p>
+<p>​    Publisher 做一下介绍。Publisher 用来定义 Peach 的 IO 连接，可以构造网络数据流（如TCP，UDP，HTTP）和文件流（如 FileWriter，FileReader）等。上例中的 Publisher 定义表示将生成的畸形数据写到 FuzzedFile 文件中。</p>
+<p>​    现在到了最后一步，Run 的配置。Run 元素用来定义要运行哪些测试，包含一个或多个 Test，另外还可以通过 Logger 元素配置日志来捕获运行结果。当然，Logger 也是可选的。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200224184056795.png" srcset="/img/loading.gif" alt="image-20200224184056795"></p>
+<h3 id="介绍一下010-script"><a href="#介绍一下010-script" class="headerlink" title="介绍一下010 script"></a>介绍一下010 script</h3><p>我感觉就是一种结构体吧，首先知道这个文件的结构，然后自己用结构体定义出来，然后read作用在这个文件上，文件中的数据映射到这个结构体中去然后康文件中的结构化的数据</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Software-security/">Software security</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Software-security/">Software security</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Smart Fuzz&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

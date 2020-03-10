@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>OWASP - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Wednesday, December 25th 2019, 10:37 am
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    2k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      12 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="OWASP"><a href="#OWASP" class="headerlink" title="OWASP"></a>OWASP</h1><h2 id="TOP-1-INJECTION"><a href="#TOP-1-INJECTION" class="headerlink" title="TOP 1  INJECTION"></a>TOP 1  INJECTION</h2><ul>
+<li><p>Injection flaws occur when an attacker can send hostile data to an interpreter</p>
+</li>
+<li><p>Injection vulnerabilities are often found in SQL, LDAP, XPath, or NoSQL queries, OS commands, XML parsers, SMTP headers, expression languages, and ORM queries. </p>
+</li>
+</ul>
+<p><strong>example：</strong></p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200221160722087.png" srcset="/img/loading.gif" alt="image-20200221160722087"></p>
+<p><strong>How to protect</strong></p>
+<ul>
+<li><p>Preventing injection requires keeping data separate from commands and queries.</p>
+</li>
+<li><p>Use positive or “whitelist” server-side input validation. This is not a complete defense as many applications require special characters, such as text areas or APIs for mobile applications.</p>
+</li>
+</ul>
+<h2 id="TOP-2-BROKEN-AUTHENTICATION"><a href="#TOP-2-BROKEN-AUTHENTICATION" class="headerlink" title="TOP 2 BROKEN AUTHENTICATION"></a>TOP 2 BROKEN AUTHENTICATION</h2><p>ps：字典攻击和暴力破解</p>
+<p><strong>Vulnerable</strong> <strong>when</strong>:</p>
+<ul>
+<li>Permits brute force or other automated attacks</li>
+<li>Permits default, weak, or well-known passwords, such as “Password1” or “admin/admin”</li>
+</ul>
+<p><strong>example</strong>:</p>
+<ul>
+<li><p>Application session timeouts aren’t set properly. A user uses a public computer to access an application. Instead of selecting “logout” the user simply closes the browser tab and walks away. An attacker uses the same browser an hour later, and the user is still authenticated.</p>
+</li>
+<li><p>Credential stuffing, the use of lists of known passwords, is a common attack. If an application does not </p>
+<p>implement automated threat or credential stuffing protections, the application can be used as a password oracle to determine if the credentials are valid.</p>
+</li>
+</ul>
+<p><strong>How to defence</strong></p>
+<ul>
+<li><p>Where possible, implement multi-factor authentication to prevent automated, credential stuffing, brute force, and stolen credential re-use attacks. </p>
+</li>
+<li><p>Limit or increasingly delay failed login attempts. Log all failures and alert administrators when credential stuffing, brute force, or other attacks are detected.</p>
+</li>
+</ul>
+<h2 id="TOP-3-SENSITIVE-DATA-EXPOSURE"><a href="#TOP-3-SENSITIVE-DATA-EXPOSURE" class="headerlink" title="TOP 3 SENSITIVE DATA EXPOSURE"></a>TOP 3 SENSITIVE DATA EXPOSURE</h2><p><strong>Definition</strong></p>
+<p>Rather than directly attacking crypto, attackers steal keys, execute man-in the-middle attacks, or steal clear text data off the server, while in transit, or from the user’s client, e.g. browser. </p>
+<p><strong><em>secret data should not be transited in plain text!</em></strong></p>
+<p><strong>Vulnerable When:</strong></p>
+<ul>
+<li><p>This concerns protocols such as HTTP, SMTP, and FTP. External internet traffic is especially dangerous. Verify all internal traffic e.g. between load balancers, web servers, or back-end systems</p>
+</li>
+<li><p>Are any old or weak cryptographic algorithms used either by default or in older code? </p>
+</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><p>An application encrypts credit card numbers in a database using automatic database encryption. However, this data is automatically decrypted when retrieved, allowing an SQL injection flaw to retrieve credit card numbers in clear text.</p>
+</li>
+<li><p>A site doesn’t use or enforce TLS for all pages or supports weak encryption. An attacker monitors network traffic (e.g. at an insecure wireless network), downgrades connections from HTTPS to HTTP, intercepts requests, and steals the user’s session cookie. The attacker then replays this cookie and hijacks the user’s (authenticated) session, accessing or modifying the user’s private data. Instead of the above they could alter all transported data, e.g. the recipient of a money transfer.</p>
+<p>需要端到端加密！end-to-end encryption is needed!</p>
+</li>
+</ul>
+<p><strong>How to protect</strong></p>
+<ul>
+<li><p>Classify data processed, stored, or transmitted by an application. Identify which data is sensitive according to privacy laws, regulatory requirements, or business needs.</p>
+</li>
+<li><p>Apply controls as per the classification.</p>
+</li>
+</ul>
+<h2 id="TOP-4-XML-External-Entities-XXE"><a href="#TOP-4-XML-External-Entities-XXE" class="headerlink" title="TOP 4 XML External Entities (XXE)"></a>TOP 4 <strong>XML External Entities (XXE)</strong></h2><p><strong>Definition</strong></p>
+<p>Attackers can exploit vulnerable XML processors if they can upload XML or include hostile content in an XML document, exploiting vulnerable code, dependencies or integrations. </p>
+<p><strong>Vulnerable</strong> <strong>when</strong>:</p>
+<ul>
+<li><p>The application accepts XML directly or XML uploads, especially from untrusted sources, or inserts untrusted data into XML documents, which is then parsed by an XML processor</p>
+</li>
+<li><p>Being vulnerable to XXE attacks likely means that the application is vulnerable to denial of service attacks including the Billion Laughs attack.</p>
+</li>
+</ul>
+<p><strong>ps: what is the Billion Laughs attack ?</strong></p>
+<p>The example attack consists of defining 10 entities, each defined as consisting of 10 of the previous entity, with the document consisting of a single instance of the largest entity, which expands to one <a href="https://en.wikipedia.org/wiki/1000000000_(number)" target="_blank" rel="noopener">billion</a> copies of the first entity.</p>
+<p>like:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">lolz</span> [</span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol</span> <span class="meta-string">"lol"</span>&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ELEMENT <span class="meta-keyword">lolz</span> (<span class="meta-keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol1</span> <span class="meta-string">"&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;"</span>&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol2</span> <span class="meta-string">"&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;"</span>&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol3</span> <span class="meta-string">"&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;"</span>&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol4</span> <span class="meta-string">"&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;"</span>&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol5</span> <span class="meta-string">"&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;"</span>&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol6</span> <span class="meta-string">"&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;"</span>&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol7</span> <span class="meta-string">"&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;"</span>&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol8</span> <span class="meta-string">"&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;"</span>&gt;</span></span></span><br><span class="line"><span class="meta"> <span class="meta">&lt;!ENTITY <span class="meta-keyword">lol9</span> <span class="meta-string">"&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;"</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">lolz</span>&gt;</span>&amp;lol9;<span class="tag">&lt;/<span class="name">lolz</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>When an XML parser loads this document, it sees that it includes one root element, “lolz”, that contains the text “&lol9;”. However, “&lol9;” is a defined entity that expands to a string containing ten “&lol8;” strings. Each “&lol8;” string is a defined entity that expands to ten “&lol7;” strings, and so on. After all the entity expansions have been processed, this small (&lt; 1 KB) block of XML will actually contain 109 = a billion “lol”s, taking up almost 3 <a href="https://en.wikipedia.org/wiki/Gigabyte" target="_blank" rel="noopener">gigabytes</a> of memory</p>
+<p><strong>Example:</strong></p>
+<ul>
+<li>The attacker attempts to extract data from the server:</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200221173631345.png" srcset="/img/loading.gif" alt="image-20200221173631345"></p>
+<p><strong>How to protect</strong></p>
+<ul>
+<li><p>Verify that XML or XSL file upload functionality validates incoming XML using XSD validation or similar.</p>
+<p>(XSD is the replacement of the DTD)</p>
+</li>
+</ul>
+<h2 id="TOP-5-Broken-Access-Control"><a href="#TOP-5-Broken-Access-Control" class="headerlink" title="TOP 5 Broken Access Control"></a>TOP 5 <strong>Broken Access Control</strong></h2><p><strong>Definition</strong>:</p>
+<p>Access control enforces policy such that users cannot act outside of their intended permissions. Break the control can endow the user some privileges that are not supposed to have </p>
+<p><strong>Vulnerable when</strong>:</p>
+<ul>
+<li>Bypassing access control checks by modifying the URL, internal application state, or the HTML page, or simply using a custom API attack tool</li>
+<li>Elevation of privilege. Acting as a user without being logged in, or acting as an admin when logged in as a user.</li>
+</ul>
+<p><strong>Example：</strong></p>
+<ul>
+<li><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200221175400087.png" srcset="/img/loading.gif" alt="image-20200221175400087"></li>
+</ul>
+<p><strong>How to protect</strong></p>
+<ul>
+<li>With the exception of public resources, deny by default.</li>
+<li>Log access control failures, alert admins when appropriate </li>
+</ul>
+<h2 id="TOP-6-Security-Misconfiguration"><a href="#TOP-6-Security-Misconfiguration" class="headerlink" title="TOP 6 Security Misconfiguration"></a>TOP 6 <strong>Security Misconfiguration</strong></h2><p>个人感觉是个很文学的错误（</p>
+<p>就是感觉这也能算错误？？？跟粗心大意一个意思XD</p>
+<p><strong>Definition:</strong></p>
+<p>Attackers will often attempt to exploit unpatched flaws or access default accounts, unused pages, unprotected files and directories, etc to gain unauthorized access or knowledge of the system.</p>
+<p><strong>Vulnerable when:</strong></p>
+<ul>
+<li><p>Error handling reveals stack traces or other overly informative error messages to users.</p>
+</li>
+<li><p>Unnecessary features are enabled or installed (e.g. unnecessary ports, services, pages, accounts, or privileges).</p>
+</li>
+</ul>
+<p><strong>Example：</strong></p>
+<ul>
+<li>The application server comes with sample applications that are not removed from the production server. These sample applications have known security flaws attackers use to compromise the server. If one of these applications is the admin console, and default accounts weren’t changed the attacker logs in with default passwords and takes over</li>
+</ul>
+<p><strong>How to protect:</strong></p>
+<ul>
+<li>A repeatable hardening process that makes it fast and easy to deploy another environment that is properly locked down. Development, QA, and production environments should all be configured identically, with different credentials used in each environment. This process should be automated to minimize the effort required to setup a new secure environment.</li>
+</ul>
+<h2 id="Cross-Site-Scripting-XSS"><a href="#Cross-Site-Scripting-XSS" class="headerlink" title="Cross-Site Scripting (XSS)"></a><strong>Cross-Site Scripting (XSS)</strong></h2><p><strong>Stored XSS:</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6230889-07ab49e8b1ea148a.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" srcset="/img/loading.gif" alt="img"></p>
+<p><strong>Reflected XSS</strong></p>
+<p>一般是利用用户的输入不做过滤然后直接执行这样，eg：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>XSS<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span> <span class="attr">method</span>=<span class="string">"get"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"input"</span>&gt;</span>     </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span> </span><br><span class="line"><span class="php"><span class="meta">&lt;?php</span> </span></span><br><span class="line"><span class="php">$XssReflex = $_GET[<span class="string">'input'</span>];</span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> <span class="string">'output:&lt;br&gt;'</span>.$XssReflex;</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>DOM XSS:</strong></p>
+<p>在很多场景下，业务需要实现页面跳转，常见的使用，<code>location.href()</code> <code>location.replace()</code> <code>location.assign()</code>这些方法通过Javascript实现跳转。我们第一时间可能想到的是限制不严导致任意URL跳转漏洞，而DOM XSS与此似乎“八竿子打不着”，实际上跳转部分参数可控，可能导致Dom xss。</p>
+<p>JavaScript frameworks, single-page applications, and APIs that dynamically include attacker-controllable data to a page are vulnerable to DOM XSS. Ideally, the application would not send attacker-controllable data to unsafe JavaScript APIs.</p>
+<p><strong>Example:</strong></p>
+<p>Take the above Reflected XSS as an example:</p>
+<p>we input the <script>alert('xss')</script>  ：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6230889-909939f59402f6b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1001/format/webp" srcset="/img/loading.gif" alt="img"></p>
+<p>it means without the filter, the browser execute the code we input</p>
+<p><strong>How to protect</strong></p>
+<p>Preventing XSS requires separation of untrusted data from active browser content. This can be achieved by</p>
+<ul>
+<li>Using frameworks that automatically escape XSS by design, such as the latest Ruby on Rails, React JS. Learn the limitations of each framework’s XSS protection and appropriately handle the use cases which are not covered.</li>
+</ul>
+<h2 id="TOP-8-Insecure-Deserialization"><a href="#TOP-8-Insecure-Deserialization" class="headerlink" title="TOP 8 Insecure Deserialization"></a>TOP 8 Insecure Deserialization</h2><p>改变运行顺序？</p>
+<p><strong>two types of attack:</strong></p>
+<ul>
+<li><p>Object and data structure related attacks where the attacker modifies application logic or achieves arbitrary remote code execution if there are classes available to the application that can change behavior during or after deserialization.</p>
+</li>
+<li><p>Typical data tampering attacks, such as access-control-related attacks, where existing data structures are used but the content is changed.</p>
+</li>
+</ul>
+<p><strong>Example：</strong></p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200221204832056.png" srcset="/img/loading.gif" alt="image-20200221204832056"></p>
+<p><strong>How to protect</strong></p>
+<p>The only safe architectural pattern is not to accept serialized objects from untrusted sources or to use serialization mediums that only permit primitive data types.</p>
+<h2 id="TOP-9-Using-Components-with-Known-Vulnerabilities"><a href="#TOP-9-Using-Components-with-Known-Vulnerabilities" class="headerlink" title="TOP 9 Using Components with Known Vulnerabilities"></a>TOP 9 <strong>Using Components</strong> with Known Vulnerabilities</h2><p>我觉得这是废话，跟同上一样=-=</p>
+<p><strong>when Vulnerable</strong></p>
+<ul>
+<li>If you do not know the versions of all components you use (both client-side and server-side). This includes components you directly use as well as nested dependencies.</li>
+<li>If you do not scan for vulnerabilities regularly and subscribe to security bulletins related to the components you use.</li>
+</ul>
+<p><strong>Example</strong></p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200221205313612.png" srcset="/img/loading.gif" alt="image-20200221205313612"></p>
+<p><strong>How to protect:</strong></p>
+<ul>
+<li><p>Remove unused dependencies, unnecessary features, components, files, and documentation.</p>
+</li>
+<li><p>Only obtain components from official sources over secure links. Prefer signed packages to reduce the chance of including a modified, malicious component.</p>
+</li>
+</ul>
+<h2 id="TOP-10-Insufficient-Logging-amp-Monitoring"><a href="#TOP-10-Insufficient-Logging-amp-Monitoring" class="headerlink" title="TOP 10 Insufficient Logging &amp; Monitoring"></a>TOP 10 <strong>Insufficient</strong> Logging &amp; Monitoring</h2><p>Attackers rely on the lack of monitoring and timely response to achieve their goals without being </p>
+<p>detected.</p>
+<p><strong>Vulnerable when：</strong></p>
+<ul>
+<li><p>Auditable events, such as logins, failed logins, and high-value transactions are not logged.</p>
+</li>
+<li><p>Logs of applications and APIs are not monitored for suspicious activity.</p>
+</li>
+<li><p>Warnings and errors generate no, inadequate, or unclear log messages.</p>
+</li>
+</ul>
+<p><strong>Remember</strong>: You are vulnerable to information leakage if you make logging and alerting events visible to a user or an attacker </p>
+<p><strong>Example</strong></p>
+<ul>
+<li>An attacker uses scans for users using a common password. They can take over all accounts using this password. For all other users, this scan leaves only one false login behind. After some days, this may be repeated with a different password.</li>
+</ul>
+<p><strong>How to protect</strong></p>
+<ul>
+<li>Ensure all login, access control failures, and server-side input validation failures can be logged with sufficient user context to identify suspicious or malicious accounts, and held for sufficient time to allow delayed forensic analysis.</li>
+<li>Ensure that logs are generated in a format that can be easily consumed by a centralized log management solutions.</li>
+</ul>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Software-security/">Software security</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Software-security/">Software security</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "OWASP&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

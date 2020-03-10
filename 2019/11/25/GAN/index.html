@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>GAN - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Monday, November 25th 2019, 4:17 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      5 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h1><p>GAN这个东西真的蛮有意思的，中文名叫对抗神经网络，如其名，整个训练过程就是D(discriminator) 和 G(Generator)的对抗，我们来看具体过程</p>
+<p>先笼统的说一下GAN的过程吧：</p>
+<ol>
+<li><p>首先D 拿到真实的数据，然后对应lable都是真，产生对真的score1</p>
+</li>
+<li><p>然后又G来根据随机种子产生图片，丢到D里面去，这时候对应的lable都是假，产生对假的score2</p>
+</li>
+<li><p>有了score1和score2之后就可以计算discriminator的loss了！拿到loss之后进行backward(注意，这里只对D进行更新！！！)</p>
+</li>
+<li><p>将存储在G中的grad清零。</p>
+</li>
+<li><p>然后G再产生一组新的fake image(前面那组专门给D使用)，这组新的Image丢进D然后得到score3</p>
+</li>
+<li><p>使用score3得到G_loss, 然后使用G_loss进行backward，对D中的grad清零，对G进行更新(不对D更新)</p>
+</li>
+<li><p>可以注意到G和D是固定住一端然后更新另一端的。</p>
+<p>总体逻辑类似于下面的图:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206221332383.png" srcset="/img/loading.gif" alt="image-20200206221332383"></p>
+</li>
+</ol>
+<p>在？看看公式:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206215516819.png" srcset="/img/loading.gif" alt="image-20200206215516819"></p>
+<p>上面那个公式就是训练的目标了</p>
+<p>其中:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">D(x)：指的是对输入x的score，换句话说是对x判断是否为真的可能性</span><br><span class="line"></span><br><span class="line">G(z):   z是随机扰动，G(z)是由G生成的图像</span><br><span class="line"></span><br><span class="line">E：是指期望</span><br></pre></td></tr></table></figure>
+
+<p>上面那个公式的意思是，G 希望能够减小这个值，也就是说希望能达到以假乱真的结果，也就是希望D(G(z))比较大（意味着产生出来的图片被认为真的可能性很大)</p>
+<p>相反对于D来说，希望能够增大这个值，理由同上</p>
+<h2 id="Conventional-GAN"><a href="#Conventional-GAN" class="headerlink" title="Conventional GAN"></a>Conventional GAN</h2><h3 id="discriminator"><a href="#discriminator" class="headerlink" title="discriminator"></a>discriminator</h3><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206221811538.png" srcset="/img/loading.gif" alt="image-20200206221811538"></p>
+<p>目标是将上面的值变大，我们换到loss下来思考就是负数变小嘛，于是:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206222009334.png" srcset="/img/loading.gif" alt="image-20200206222009334"></p>
+<p>这就是D的<strong>loss</strong>了。</p>
+<p>接下来我们来看下如何实现这两项的期望</p>
+<p>其实就是bce: binary cross entropy 很有名的二分交叉熵了(在二分类中，模型输出的是为true或是false的概率，用true或是false为标签值，之后使用bce得到loss)，仔细一看，这不就是数学期望的定义么=-=</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206223412056.png" srcset="/img/loading.gif" alt="image-20200206223412056"></p>
+<p>接下来我们看看如何计算期望，因为直接这样naive输入是会有不稳定和大于1(输入是score不是概率)的问题，所以这边提供了稳定的方法。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206223641773.png" srcset="/img/loading.gif" alt="image-20200206223641773"></p>
+<p>有了bce的实现之后，看一下D的loss实现</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206225805299.png" srcset="/img/loading.gif" alt="image-20200206225805299"></p>
+<p>那个减一也就是变为0了，也就是说是假的</p>
+<h4 id="层次结构"><a href="#层次结构" class="headerlink" title="层次结构"></a>层次结构</h4><p>传统的GAN的D和G结构比较简单:<br>先看看D:<br>线性层-》ReLU-》线性层-》ReLU-》线性层-》TanH</p>
+<p>实现:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206225356369.png" srcset="/img/loading.gif" alt="image-20200206225356369"></p>
+<h3 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h3><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206225519069.png" srcset="/img/loading.gif" alt="image-20200206225519069"></p>
+<p>可以看到这里跟D是类似的，但是他是希望能够增加假数据(也就是自己生成的数据)的分数</p>
+<p>具体是这样滴,  减小下面这个loss:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206225629987.png" srcset="/img/loading.gif" alt="image-20200206225629987"></p>
+<p>loss的实现是这样滴：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206225909908.png" srcset="/img/loading.gif" alt="image-20200206225909908"></p>
+<p>这里就只要将标签置为1就可以了。</p>
+<p>然后根据这个loss去更新G即可</p>
+<h4 id="层次结构-1"><a href="#层次结构-1" class="headerlink" title="层次结构"></a>层次结构</h4><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200206230118920.png" srcset="/img/loading.gif" alt="image-20200206230118920"></p>
+<p>从噪声进来然后一层一层的全连接输出图片向量</p>
+<h3 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h3><p>训练过程之前在开始已经提过了，基本就是这么个过程了。</p>
+<p>记住一点！GAN的训练过程是</p>
+<p>再提一次:</p>
+<p>在以下步骤中做规定次数的循环:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">0. 先将D的grad清零</span><br><span class="line"></span><br><span class="line">1. 首先D 拿到真实的数据，然后对应lable都是真，产生对真的score1</span><br><span class="line"></span><br><span class="line">2. 然后又G来根据随机种子产生图片，丢到D里面去，这时候对应的lable都是假，产生对假的score2</span><br><span class="line"></span><br><span class="line">3. 有了score1和score2之后就可以计算discriminator的loss了！拿到loss之后进行backward(注意，这里只对D进行更新！！！)</span><br><span class="line"></span><br><span class="line">4. 将存储在G中的grad清零。</span><br><span class="line"></span><br><span class="line">5. 然后G再产生一组新的fake image(前面那组专门给D使用)，这组新的Image丢进D然后得到score3</span><br><span class="line"></span><br><span class="line">6. 使用score3得到G_loss, 然后使用G_loss进行backward，对D中的grad清零，对G进行更新(不对D更新)</span><br></pre></td></tr></table></figure>
+
+<p>结果:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200207004705039.png" srcset="/img/loading.gif" alt="image-20200207004705039"></p>
+<h2 id="Least-Square-GAN"><a href="#Least-Square-GAN" class="headerlink" title="Least Square GAN"></a>Least Square GAN</h2><p>原理跟前面的一样,这里用距离的平均来表示:<br>D训练中:D预测出的真实数据的值与1应该更接近，预测生成数据的值要与0更接近</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200207003207272.png" srcset="/img/loading.gif" alt="image-20200207003207272"></p>
+<p>实现:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200207003258729.png" srcset="/img/loading.gif" alt="image-20200207003258729"></p>
+<p>G训练中:G生成出来的值要与1更接近</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200207003158773.png" srcset="/img/loading.gif" alt="image-20200207003158773"></p>
+<p>实现:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200207003315541.png" srcset="/img/loading.gif" alt="image-20200207003315541"></p>
+<p>这个跟之前的区别我个人感觉就是更通俗易懂而且更稳定了。</p>
+<p>以后要是做GAN的话我必用这一种做loss</p>
+<p>反正记住两种loss吧:</p>
+<ol>
+<li>一种是交叉熵取负数</li>
+<li>第二种是距离</li>
+</ol>
+<p>接下来的更刺激一些</p>
+<h2 id="Deeply-Convolutional-GANs（DCGAN"><a href="#Deeply-Convolutional-GANs（DCGAN" class="headerlink" title="Deeply Convolutional GANs（DCGAN)"></a>Deeply Convolutional GANs（DCGAN)</h2><p>这就是传说中的DCGAN了，</p>
+<p>更之前的区别就在于D,G的结构不一样，其他都是一样的。</p>
+<p>可以注意到，我们之前生成的图片有一个问题就是边缘很模糊这样，所以我们在DCGAN中使用了卷积层的filter来进行特征的提取可以使得效果好很多</p>
+<p>先看一下D的结构，比较好理解:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200207004748433.png" srcset="/img/loading.gif" alt="image-20200207004748433"></p>
+<p>只不过是加了两层卷积池化罢了。</p>
+<p>但是在G中就有一个比较有意思的东西了</p>
+<p>先看一下结构:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200207004839414.png" srcset="/img/loading.gif" alt="image-20200207004839414"></p>
+<p>可以看到，其中有两个ConvTranspose这个是反卷积：</p>
+<p>因为我们卷积时候把图片特征是提取出来了的，相当于是在压缩图片，但是我们是要将噪声生成可以看的图片，要还回去。但是卷积是不可逆的操作，所以只能还原图片尺度无法还原数值.</p>
+<p>但是我对这个地方的理解也不是很深刻</p>
+<p>反卷积参见:</p>
+<p><a href="https://www.zhihu.com/question/48279880" target="_blank" rel="noopener">https://www.zhihu.com/question/48279880</a></p>
+<p>再看一下DCGAN的效果:</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200207005327679.png" srcset="/img/loading.gif" alt="image-20200207005327679"></p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Deep-learning/">Deep learning</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Math/">Math</a>
+                
+                  <a class="hover-with-bg" href="/tags/Deep-learning/">Deep learning</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "GAN&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>SVM - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Saturday, January 25th 2020, 2:12 am
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    478 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      1 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="SVM的一点心得"><a href="#SVM的一点心得" class="headerlink" title="SVM的一点心得"></a>SVM的一点心得</h1><h3 id="支持向量机公式推导"><a href="#支持向量机公式推导" class="headerlink" title="支持向量机公式推导"></a>支持向量机公式推导</h3><img src="https://pic2.zhimg.com/80/v2-17ea1d3c2532f3df5db77f39484acaad_hd.jpg" srcset="/img/loading.gif" alt="img" style="zoom:50%;" />
+
+<p>首先明确，在虚线上的点被称为支持向量</p>
+<p>好，知道这点之后往后看</p>
+<p>为了使得分类效果较好，我们往往希望支持向量到分类面的距离d1,d2 可以最大，</p>
+<p>于是有了算这个决策面的方法</p>
+<p><strong>首先看距离公式</strong>：</p>
+<p><img src="https://www.zhihu.com/equation?tex=d+%3D+%5Cfrac%7B%7C%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D%2B%5Cgamma%7C%7D%7B%7C%7C%5Cboldsymbol%7B%5Comega%7D%7C%7C%7D" srcset="/img/loading.gif" alt="[公式]"></p>
+<p>这是在高中学过的距离公式</p>
+<p>其中，w，x是向量，w对应到二维平面就是斜率咯</p>
+<p><strong>再看约束条件</strong></p>
+<p><img src="https://www.zhihu.com/equation?tex=y_i+%3D+%5Cleft%5C%7B%5Cbegin%7Barray%7D%7Bll%7D%2B1+%26+%5Ctextrm%7Bfor+blue+points%7D%5C%5C-1+%26+%5Ctextrm%7Bfor+red+points%7D%5Cend%7Barray%7D%5Cright." srcset="/img/loading.gif" alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cleft%5C%7B%5Cbegin%7Barray%7D%7Bll%7D+%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma%3E0+%26+%5Ctextrm%7Bfor~~%7D+y_i%3D1%5C%5C%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma%3C0+%26+%5Ctextrm%7Bfor~~%7D+y_i%3D-1%5Cend%7Barray%7D%5Cright." srcset="/img/loading.gif" alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cleft%5C%7B%5Cbegin%7Barray%7D%7Bll%7D+%28%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma%29%2F%7C%7C%5Cboldsymbol%7B%5Comega%7D%7C%7C%5Cgeq+d+%26+%5Cforall~+y_i%3D1%5C%5C%28%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma%29%2F%7C%7C%5Cboldsymbol%7B%5Comega%7D%7C%7C%5Cleq+-d+%26+%5Cforall~y_i%3D-1%5Cend%7Barray%7D%5Cright." srcset="/img/loading.gif" alt="[公式]"></p>
+<p>这里注明一下，这个d是一个常量，应该理解为d1这样，要跟之后的d相区分，是指支持向量到决策面距离</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cleft%5C%7B%5Cbegin%7Barray%7D%7Bll%7D+%5Cboldsymbol%7B%5Comega%7D_d%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma_d%5Cgeq+1+%26+%5Ctextrm%7Bfor~~%7D+y_i%3D1%5C%5C%5Cboldsymbol%7B%5Comega%7D_d%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma_d%5Cleq+-1+%26+%5Ctextrm%7Bfor~~%7D+y_i%3D-1%5Cend%7Barray%7D%5Cright." srcset="/img/loading.gif" alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cboldsymbol%7B%5Comega%7D_d+%3D+%5Cfrac%7B%5Cboldsymbol%7B%5Comega%7D%7D%7B%7C%7C%5Cboldsymbol%7B%5Comega%7D%7C%7Cd%7D%2C~~+%5Cgamma_d+%3D+%5Cfrac%7B%5Cgamma%7D%7B%7C%7C%5Cboldsymbol%7B%5Comega%7D%7C%7Cd%7D" srcset="/img/loading.gif" alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cleft%5C%7B%5Cbegin%7Barray%7D%7Bll%7D+%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma%5Cgeq+1+%26+%5Ctextrm%7Bfor~~%7D+y_i%3D1%5C%5C%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma%5Cleq+-1+%26+%5Ctextrm%7Bfor~~%7D+y_i%3D-1%5Cend%7Barray%7D%5Cright." srcset="/img/loading.gif" alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=d+%3D+%5Cfrac%7B%7C%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma%7C%7D%7B%7C%7C%5Cboldsymbol%7B%5Comega%7D%7C%7C%7D%3D%5Cfrac%7B1%7D%7B%7C%7C%5Cboldsymbol%7B%5Comega%7D%7C%7C%7D%2C~~%5Ctextrm%7Bif%7D+~%5Cboldsymbol%7Bx%7D_i+%5Ctextrm+%7Bis+a+support+vector%7D+" srcset="/img/loading.gif" alt="[公式]"></p>
+<p>​    看到这里，稍微解释一下，只有是支持向量才能将上半部分替换为1，于是扩大d的方法就是得到w的最小值</p>
+<p><img src="https://www.zhihu.com/equation?tex=y_i%28%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma%29%5Cgeq+1~%5Cforall+%5Cboldsymbol%7Bx%7D_i" srcset="/img/loading.gif" alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cbegin%7Barray%7D%7Bl%7D+%5Cmin_%7B%5Cboldsymbol%7B%5Comega%7D%2C%5Cgamma%7D%5Cfrac%7B1%7D%7B2%7D%7C%7C%5Cboldsymbol%7B%5Comega%7D%7C%7C%5E2%5C%5C+~%5C%5C+%5Ctextrm%7Bs.+t.%7D~+~y_i%28%5Cboldsymbol%7B%5Comega%7D%5ET%5Cboldsymbol%7Bx%7D_i%2B%5Cgamma%29%5Cgeq+1%2C~~i+%3D+1%2C2%2C...%2Cm+%5Cend%7Barray%7D+" srcset="/img/loading.gif" alt="[公式]"></p>
+<p>注意，这个1/2是为了之后求导方便</p>
+<h3 id="求得最小值"><a href="#求得最小值" class="headerlink" title="求得最小值"></a>求得最小值</h3><p>约束条件下最小值的求解：</p>
+<p><strong>当当当挡</strong>： 微积分上学的拉格朗日乘子法,</p>
+<p>F’x=ƒ’x(x,y)+λφ’x(x,y)=0 </p>
+<p>F’y=ƒ’y(x,y)+λφ’y(x,y)=0</p>
+<p>F’λ=φ(x,y)=0</p>
+<h3 id="SVM-hinge-loss作业有感"><a href="#SVM-hinge-loss作业有感" class="headerlink" title="SVM hinge_loss作业有感"></a>SVM hinge_loss作业有感</h3><p>如何计算SVM的损失呢？</p>
+<p><img src="https://pic3.zhimg.com/80/f7714c6fb06ed6d1f765ba17a696b0de_hd.png" srcset="/img/loading.gif" alt="img"></p>
+<p>标准的hingeloss</p>
+<p>按照这个公式算就可以了</p>
+<p>注意矩阵计算。</p>
+<p>对于梯度就比较有意思了，是这样的：</p>
+<p>比如Xi对应的label是Yi, 当有共C个类时，其中有K个类对损失做了贡献，则减少对应的权重减少的值为Xi，而增加Yi对应的权值，增加的值为K*Xi，为什么是加上Xi呢？因为Xi包含着这个样本的全部特征。如果Xj也对应着分类Yi，则在Xj的梯度计算时，也会从Xj中提取一定量的特征加入到权利 Wyi中（这里Wyi与Wyi实际上是同一个分类的权重）。</p>
+<p><img src="https://pic2.zhimg.com/80/9cf5d79f58ca3c63ea21b6a9c75940f5_hd.png" srcset="/img/loading.gif" alt="img"></p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Machine-learning/">Machine learning</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Math/">Math</a>
+                
+                  <a class="hover-with-bg" href="/tags/Machine-learning/">Machine learning</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "SVM&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

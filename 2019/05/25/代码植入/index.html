@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>shell code injection - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Saturday, May 25th 2019, 5:17 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.1k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      3 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="shell-code代码植入"><a href="#shell-code代码植入" class="headerlink" title="shell code代码植入"></a>shell code代码植入</h1><p>首先我们复习一下汇编的相关知识</p>
+<p>函数Giao用</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227173909157.png" srcset="/img/loading.gif" alt="image-20200227173909157"></p>
+<ul>
+<li><p>开新的栈帧，下面依次是ebp，断点地址，参数。</p>
+</li>
+<li><p>然后esp在老上头，上面存着edi，esi这些之前寄存器的值。</p>
+</li>
+<li><p>此时的ebp是定海神针，局部变量的操作都是靠他来定位</p>
+</li>
+<li><p>然后写入局部变量就是先来后到从下往上写</p>
+</li>
+<li><p>返回的时候弹回之前的东西，然后断点给EIP，之后esp+N(淹没参数)</p>
+</li>
+</ul>
+<p>这个0 days上给的其实跟我们做的软安实验是如出一辄的，只不过他的植入是在buffer的顶部开始植入，而我们的软安课设是JMP ESP 到下面去执行，也就是一个在覆盖地址前面，一个在覆盖地址后面，而且更重要的区别在于我们用JMP ESP 是更稳定的，如果定位到一个特定的位置，由于动态加载，很可能下次就用不了了。</p>
+<p>好我们把shellcode 的相关东西都拿来，注意，这里讨论是纯粹讨论是可以在栈中进行执行的</p>
+<h1 id="shellcode-的升级历程"><a href="#shellcode-的升级历程" class="headerlink" title="shellcode 的升级历程"></a>shellcode 的升级历程</h1><h3 id="JMP-ESP"><a href="#JMP-ESP" class="headerlink" title="JMP ESP"></a>JMP ESP</h3><p>这个方法是软安实验中用的，目的就是保证每次地址变换之后还能找到shellcode，因为这样是一个相对的概念，不是绝对寻址。</p>
+<p>但是我们同时也要注意到，我们这样是需要把shellcode写在esp下面的。这样是有坏处的，一般来说shellcode会比较长，这样就会导致下一个栈帧被破坏导致不能正常返回。</p>
+<h3 id="利用JMP-ESP之后加一个header"><a href="#利用JMP-ESP之后加一个header" class="headerlink" title="利用JMP ESP之后加一个header"></a>利用JMP ESP之后加一个header</h3><p>加了一个header之后可以让程序返回到上面的缓冲区去执行，注意，这里跟之前的区别在于，我们可以控制回到的位置！</p>
+<h3 id="抬高栈顶保护shellcode"><a href="#抬高栈顶保护shellcode" class="headerlink" title="抬高栈顶保护shellcode"></a>抬高栈顶保护shellcode</h3><p>注意到，我们将JMP ESP之后，我们是将ESP留在了shellcode的下方的，这样的话，如果本身shellcode需要压入数据而且如果shellcode离得不远，就自己把自己给覆盖了。</p>
+<p>所以！我们在一开始执行shellcode的时候需要先把栈顶抬到shellcode上去，就是说sub esp， xxx这样！</p>
+<h3 id="返回不确定"><a href="#返回不确定" class="headerlink" title="返回不确定"></a>返回不确定</h3><p>当返回地址有时候不确定的话，这时候我们可以多加一点nop指令和加入大量的返回区域指令，这样把靶子弄大了就能保证能够进入区域。</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227215028650.png" srcset="/img/loading.gif" alt="image-20200227215028650"></p>
+<h3 id="进一步通用，定位API"><a href="#进一步通用，定位API" class="headerlink" title="进一步通用，定位API"></a>进一步通用，定位API</h3><p>因为我们之前找API的方法是直接打开dll，然后开始找，但是这样换一台机子就没了。</p>
+<p>于是我们要跟windows找API那样，找到一个字典来对应到API</p>
+<p>于是有这样的操作：</p>
+<ol>
+<li><p>在段选择字中找到当前的线程环境块TEB</p>
+</li>
+<li><p>在TEB的偏移0x30的位置找到进程环境块PEB</p>
+</li>
+<li><p>PEB的偏移0x0C的位置存放着PEB_LDR_DATA的指针</p>
+</li>
+<li><p>PEB_LER_DATA偏移为0x1C的位置存放模块初始化指针InInitializationOrderModuleList</p>
+</li>
+<li><p>InInitializationOrderModuleList 中按顺序存放着 PE 装入运行时初始化模块的信息，第一个链表结点是 ntdll.dll，第二个链表结点就是 kernel32.dll。</p>
+</li>
+<li><p>找到属于 kernel32.dll 的结点后，在其基础上再偏移 0x08 就是 kernel32.dll 在内存中的</p>
+<p>加载基地址。</p>
+<p>从 kernel32.dll 的加载基址算起，偏移 0x3C 的地方就是其 PE 头。PE 头偏移 0x78 的地方存着指向函数导出表的指针。</p>
+</li>
+<li><p>找到函数导出表</p>
+</li>
+</ol>
+<p>找到导出表了就OK辣！</p>
+<p>有名称就能找到对应的位置，然后就是RVA+基址就可以了</p>
+<p>注意，这里，也是有可以升级的地方，可以用hash值代替函数名，但是同样的，要把hash函数附上，用来hash表中的名字</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227230729023.png" srcset="/img/loading.gif" alt="image-20200227230729023"></p>
+<p>Tips：如果有dll没有加载进来需要使用loadlibrary</p>
+<h3 id="shellcode编码技术"><a href="#shellcode编码技术" class="headerlink" title="shellcode编码技术"></a>shellcode编码技术</h3><p>因为现在有检测shellcode的程序了已经，所以要把他包装起来，利用的编码的方法：</p>
+<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200227230904573.png" srcset="/img/loading.gif" alt="image-20200227230904573"></p>
+<h3 id="shellcode-的“瘦身’’"><a href="#shellcode-的“瘦身’’" class="headerlink" title="shellcode 的“瘦身’’"></a>shellcode 的“瘦身’’</h3><p>因为很多时候留给shellcode的空间并不多</p>
+<ol>
+<li><p><strong>挑选短指令</strong></p>
+</li>
+<li><p><strong>代码数据混用：准nop指令</strong></p>
+</li>
+<li><p><strong>善用寄存器</strong></p>
+</li>
+<li><p><strong>hash</strong></p>
+<p>选取原则：</p>
+<ol>
+<li>减少冲突</li>
+<li>摘要达到8bit最合适</li>
+<li>能多有准nop指令最好</li>
+</ol>
+</li>
+</ol>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Software-security/">Software security</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Software-security/">Software security</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "shell code injection&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>ActiveX 控件的利用，挖掘与防治 - Simple</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Simple</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Thursday, October 10th 2019, 8:47 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.5k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      5 分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="far fa-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          
+          <div class="markdown-body">
+            <h1 id="ActiveX-控件的利用，挖掘与防治"><a href="#ActiveX-控件的利用，挖掘与防治" class="headerlink" title="ActiveX 控件的利用，挖掘与防治"></a>ActiveX 控件的利用，挖掘与防治</h1><h4 id="什么是ActiveX？"><a href="#什么是ActiveX？" class="headerlink" title="什么是ActiveX？"></a>什么是ActiveX？</h4><p>​    ActiveX是Microsoft对于一系列策略性面向对象程序技术和工具的称呼，其中主要的技术是组件对象模型(COM)。在有目录和其它支持的网络中，COM变成了分布式COM（DCOM）。    </p>
+<p>​    通过一个精心构造的页面 exploit 第三方软件中的 ActiveX 已经成为“网马”惯用的手段。近年来，众多知名软件公司都曾被发现其注册的 ActiveX 中存在严重的缓冲区溢出漏洞，并且能够允许攻击者执行任意代码。一个被广泛使用的第三方应用软件，其出现安全漏洞后的危害性不亚于操作系统级别的安全漏洞</p>
+<h3 id="如何利用ActiveX？"><a href="#如何利用ActiveX？" class="headerlink" title="如何利用ActiveX？"></a>如何利用ActiveX？</h3><p>这里给出一个简单的栗子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">object</span> <span class="attr">classid</span>=<span class="string">"clsid: 00000000-0000-0000-0000-000000000000"</span> <span class="attr">name</span>=<span class="string">"evil"</span> &gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">object</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="actionscript">evil.Vulfunc(<span class="string">""</span>)；</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    代码“object”这一行用来完成对被测试 ActiveX 控件进行调用的工作。在实际测试某一个 ActiveX 控件的时候，需要修改该行中“clsid”后的具体数值，也就是“00000000-0000- 0000-0000-000000000000”这里。</p>
+<p>​    Clsid 的值可以从注册表“HKEY_CLASSES _ROOT\CLSID”中获得也可以用稍后介绍的工具获得。“script”部分是具体的测试代码。由于“object”部分调用了 ActiveX 控件，并且建立了“name”标签，用一个内存对象“evil”来代表该 ActiveX 控件。</p>
+<p>​    所以，在“script”部分只需要调用“evil”这个对象就可以替代 ActiveX 控件本身。接下来可以通过 evil 对象逐一调用控件内的所有方法，并传入各类畸形的参数，观察控件的反应。例如，这里我们测试了“Vulfunc(“”)”这个方法</p>
+<p>​    <strong>这也就意味着调用了注册的方法，而对于注册的方法的利用我们很容易就会想到很多关于软件安全的知识，栈溢出，堆溢出等等。</strong>但是由于这些被调用的方法多种多样，所以在利用之前我们需要进行exploit！</p>
+<h3 id="如何exploit？当然是fuzz！"><a href="#如何exploit？当然是fuzz！" class="headerlink" title="如何exploit？当然是fuzz！"></a>如何exploit？当然是fuzz！</h3><p>这里给出几个有名fuzz ActiveX的工具：</p>
+<ol>
+<li><p>COMRaider：(<a href="http://labs.idefense.com/software/fuzzing.php#more_comraider)，著名的iDefense" target="_blank" rel="noopener">http://labs.idefense.com/software/fuzzing.php#more_comraider)，著名的iDefense</a> LAB 出品，其作者是 David Zimmer。一款非常出色的 ActiveX Fuzz 工具，并且可以免费使用。</p>
+</li>
+<li><p>AxMan ：(<a href="http://metasploit.com/users/hdm/tools/axman/" target="_blank" rel="noopener">http://metasploit.com/users/hdm/tools/axman/</a>) ，基于 IE 的 ActiveX Fu zz 工具，必须配合 IE 一起使用，目前只支持 IE 6.0。 </p>
+</li>
+<li><p>Axfuzz ：(<a href="http://sourceforge.net/projects/axfuzz)，一个开源的工具，可以列举" target="_blank" rel="noopener">http://sourceforge.net/projects/axfuzz)，一个开源的工具，可以列举</a> COM 的所有属性，并进行简单的 Fuzz。您可以通过阅读这个工具的源码学习怎样编写自己的 ActiveX。</p>
+</li>
+</ol>
+<p>这里简单看一下COMRaider</p>
+<p>就像所有fuzz的原理一样，COMRaider先生成具有代表性的输入模板，如下图</p>
+<img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302012413530.png" srcset="/img/loading.gif" alt="image-20200302012413530" style="zoom: 67%;" />
+
+<p>之后挨个测试模板和输出，查看报错，下图可以看到对错误的记录</p>
+<img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302012501095.png" srcset="/img/loading.gif" alt="image-20200302012501095" style="zoom:80%;" />
+
+<p>并且可以查看详细信息</p>
+<img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200302012822185.png" srcset="/img/loading.gif" alt="image-20200302012822185" style="zoom:67%;" />
+
+<p>之后找到对应错误的fuzz模板，比如上面这个错误的模板是</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?XML version='1.0' standalone='yes' ?&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">package</span>&gt;</span><span class="tag">&lt;<span class="name">job</span> <span class="attr">id</span>=<span class="string">'DoneInVBS'</span> <span class="attr">debug</span>=<span class="string">'false'</span> <span class="attr">error</span>=<span class="string">'true'</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">object</span> <span class="attr">classid</span>=<span class="string">'clsid:8EF2A07C-6E69-4144-96AA-2247D892A73D'</span> <span class="attr">id</span>=<span class="string">'target'</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">language</span>=<span class="string">'vbscript'</span>&gt;</span> </span><br><span class="line">'File Generated by COMRaider v0.0.133 - http://labs.idefense.com </span><br><span class="line">'Wscript.echo typename(target) </span><br><span class="line">'for debugging/custom prolog </span><br><span class="line"><span class="actionscript">targetFile = <span class="string">"D:\iDefense\COMRaider\vuln.dll"</span> </span></span><br><span class="line"><span class="actionscript">prototype = <span class="string">"Function Method1 ( ByVal sPath As String ) As Long"</span> </span></span><br><span class="line"><span class="actionscript">memberName = <span class="string">"Method1"</span> </span></span><br><span class="line"><span class="actionscript">progid = <span class="string">"VULNLib.server"</span> </span></span><br><span class="line">argCount = 1 </span><br><span class="line"><span class="javascript">arg1=<span class="built_in">String</span>(<span class="number">9236</span>, <span class="string">"A"</span>) </span></span><br><span class="line">target.Method1 arg1 <span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;/<span class="name">job</span>&gt;</span><span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    可以看到，其中的arg1=String(9236, “A”)，产生了一个超长字符串，很明显的栈溢出漏洞，就这样被发现了，之后便利用我们软件安全课上学到的知识，利用栈溢出进行攻击即可，具体的栈溢出攻击方法就不在这次讨论范围内了。</p>
+<h3 id="如何防止ActiveX-网马的攻击"><a href="#如何防止ActiveX-网马的攻击" class="headerlink" title="如何防止ActiveX 网马的攻击"></a>如何防止ActiveX 网马的攻击</h3><p>​    准确的说，网页木马并不是木马程序，而应该称为网页木马“种植器”，也即一种通过攻击浏览器或浏览器外挂程序（目标通常是IE浏览器和ActiveX程序）的漏洞，向目标用户机器植入木马、病毒、密码盗取等恶意程序的手段。</p>
+<p>目前来说一般对于这种利用ActiveX来进行攻击的木马，有这样几种方式</p>
+<ol>
+<li><p>安装并及时更新反病毒软件，用户可尽量选择网页木马查杀能力较强的反病毒软件，并及时更新病毒特征库，这样的话，即使网页木马使用了最新的加密技术躲过反病毒软件的检测，但较新的病毒特征库也能尽可能用户免受紧跟网页木马而来的恶意软件的损害。</p>
+</li>
+<li><p>使用第三方浏览器，由于目前互联网上常见的网页木马所使用的是针对IE浏览器及其ActiveX控件的漏洞，因此，使用Firefox/Opera等非IE内核的第三方浏览器可以从源头上堵住网页木马的攻击，不过第三方浏览器在页面兼容性上稍逊IE浏览器，而且一些特别的网页，如各种使用ActiveX密码登陆控件的网上银行不能使用第三方浏览器登陆，用户在浏览这类网页时可使用IE浏览器。</p>
+</li>
+<li><p>养成安全的网站浏览习惯，用户应该养成安全的网站浏览习惯，不要随便点击各种来源不明，说明带有引诱语言的链接，防止落入攻击者的陷阱；遇到合法网站被攻击者攻陷并挂上网页木马，用户也应该报告网站管理员。</p>
+<p>虽然上面的一些方法可能是我们老生常谈的“安全习惯”，但是不得不承认，能做到以上几点就可以杜绝大部分的互联网恶意攻击</p>
+</li>
+</ol>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Software-security/">Software security</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+              
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Security/">Security</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container">
+        <div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+      </div>
+    
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    <!-- cnzz Analytics icon -->
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var main = $('main');
+      var tocT = navHeight + (toc.offset().top - main.offset().top);
+      var tocLimMin = main.offset().top - navHeight;
+      var tocLimMax = $('#comments').offset().top - navHeight;
+      $(window).scroll(function () {
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': tocT,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+  <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "ActiveX 控件的利用，挖掘与防治&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -302,8 +302,7 @@
 <p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200309024738938.png" srcset="/img/loading.gif" alt="image-20200309024738938"></p>
 <h4 id="vadtree"><a href="#vadtree" class="headerlink" title="vadtree"></a>vadtree</h4><p>这个之前介绍过了，可以把树画出来</p>
 <h2 id="一些例子"><a href="#一些例子" class="headerlink" title="一些例子"></a>一些例子</h2><h3 id="查找内存中的用户名和密码"><a href="#查找内存中的用户名和密码" class="headerlink" title="查找内存中的用户名和密码"></a>查找内存中的用户名和密码</h3><p>这里介绍到了一个函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search_ process_memory()</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">search_ process_memory()</code></pre>
 <p>这是在遍历树的时候到对应的范围查找对应的pattern，找到则返回位置，在这个例子中就是查找&amp;password，&amp;username(浏览器POST的参数)</p>
 <h3 id="Yara插件的应用"><a href="#Yara插件的应用" class="headerlink" title="Yara插件的应用"></a>Yara插件的应用</h3><p>这个插件很强，可以在很多数据中匹配pattern，比如文件或者memory dump。</p>
 <p>因为我们很多直接的搜索是在物理内存上，当数据跨页了就很难找到了，但是这个插件解决了这个问题。而且可以一次匹配多个rule</p>
@@ -318,7 +317,7 @@
               <span>
                 <i class="iconfont icon-inbox"></i>
                 
-                  <a class="hover-with-bg" href="/categories/Memory-Forensics/">Memory Forensics</a>
+                  <a class="hover-with-bg" href="/categories/Memory-forensics/">Memory forensics</a>
                   &nbsp;
                 
               </span>&nbsp;&nbsp;
