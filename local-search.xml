@@ -58,7 +58,7 @@
   
   
   <entry>
-    <title>ProcessMemoryInternals</title>
+    <title>Process Memory Internals</title>
     <link href="/2020/03/08/ProcessMemoryInternals/"/>
     <url>/2020/03/08/ProcessMemoryInternals/</url>
     
@@ -71,6 +71,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>System</tag>
+      
+    </tags>
     
   </entry>
   
@@ -574,7 +580,7 @@
   
   
   <entry>
-    <title>GAN</title>
+    <title>Transfer Learning</title>
     <link href="/2019/10/02/transferLearning/"/>
     <url>/2019/10/02/transferLearning/</url>
     
