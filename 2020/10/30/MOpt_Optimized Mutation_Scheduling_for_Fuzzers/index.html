@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>RNN&amp;LSTM - Simple</title>
+  <title>MOpt - Simple</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -123,7 +123,7 @@
               
                 <p class="mt-3 post-meta">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                  Thursday, November 21st 2019, 4:59 am
+                  Friday, October 30th 2020, 8:39 pm
                 </p>
               
 
@@ -132,7 +132,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    1.4k 字
+                    949 字
                   </span>
                 
 
@@ -174,88 +174,98 @@
         <div class="post-content mx-auto" id="post">
           
           <div class="markdown-body">
-            <h1 id="RNN-amp-LSTM"><a href="#RNN-amp-LSTM" class="headerlink" title="RNN &amp; LSTM"></a>RNN &amp; LSTM</h1><p>先介绍一下这个有名的数据集</p>
-<p><strong>Ms COCO（Common Objects in COntext）</strong></p>
-<p> MS COCO的全称是Microsoft Common Objects in Context，起源于微软于2014年出资标注的Microsoft COCO数据集，与ImageNet竞赛一样，被视为是计算机视觉领域最受关注和最权威的比赛之一。<br>        COCO数据集是一个大型的、丰富的物体检测，分割和字幕数据集。这个数据集以scene understanding为目标，主要从复杂的日常场景中截取，图像中的目标通过精确的segmentation进行位置的标定。图像包括91类目标，328,000影像和2,500,000个label。目前为止有语义分割的最大数据集，提供的类别有80 类，有超过33 万张图片，其中20 万张有标注，整个数据集中个体的数目超过150 万个。</p>
-<p>这边连不上网所以看不了可视化的数据介绍</p>
-<p>开始我们的第一位主角：</p>
-<h2 id="RNN（Recurrent-Neural-Networks）"><a href="#RNN（Recurrent-Neural-Networks）" class="headerlink" title="RNN（Recurrent Neural Networks）"></a>RNN（Recurrent Neural Networks）</h2><p>首先我们可以注意到之前的所有网络都有一个共同的问题就是没有考虑到历史信息或者说各个输入之间的信息，但是对于很多要考虑上下文的处理中这是很致命的，所以诞生了RNN。</p>
-<p>我把这次实验中的网络图先贴出来，用此介绍RNN的结构，图有些潦草为当时帮助自己理解画的</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204032959699.png" srcset="/img/loading.gif" alt="image-20200204032959699"></p>
-<p>​    可以看到图中标注的12个的位置就是RNN了，我们可以先简单这样理解，是12个简单的全连接层，然后中间的一部分结果会从第1传到第12层。这也就实现了一个历史信息的传递。</p>
-<p>好，接下来，看看各个层的实现</p>
-<h3 id="Step-forward"><a href="#Step-forward" class="headerlink" title="Step_forward"></a>Step_forward</h3><p>看RNN的step_forward(其实我觉得这个图很像一位全加器，然后RNN连起来就像多位全加器了):</p>
-<img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204035051985.png" srcset="/img/loading.gif" alt="image-20200204035051985" style="zoom:25%;" />
-
-<p>这个结合历史和输入的神奇公式是这样的：</p>
-<p>out = prev_h @ Wh + x @ Wh + b</p>
-<p>然后：</p>
-<p>输出：tanh(state)</p>
-<p>这时候要注意，Out和Hi的关系. 这个地方的Outi是输出的Hi经过temproal_layer的结果，我这里画出来的Outi实际上不是这层的输出，只是实现连贯性理解。</p>
-<h3 id="Step-Backward"><a href="#Step-Backward" class="headerlink" title="Step_Backward"></a>Step_Backward</h3><p>Backward跟所有的BP都是一样的. 求导咯</p>
-<p>这里给出了dnext_h，然后往回链式求导</p>
-<p>实现：</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204035605412.png" srcset="/img/loading.gif" alt="image-20200204035605412"></p>
-<h3 id="RNN-MODEL-FORWARD"><a href="#RNN-MODEL-FORWARD" class="headerlink" title="RNN_MODEL_FORWARD"></a>RNN_MODEL_FORWARD</h3><p>这个比较简单，只要能理解Rnn的结构即可，将每一次迭代的历史信息传递给下一次迭代</p>
-<p>实现：</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204035904383.png" srcset="/img/loading.gif" alt="image-20200204035904383"></p>
-<h3 id="RNN-MODEL-BACKWARD"><a href="#RNN-MODEL-BACKWARD" class="headerlink" title="RNN_MODEL_BACKWARD"></a>RNN_MODEL_BACKWARD</h3><p>​    由于写好了基本的反向层，只要一层一层传就可以了。但是要注意到，历史信息是会向前传递的，所以，导数是需要往回传的。</p>
-<p>所以会有一个这样的累加：</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204040202384.png" srcset="/img/loading.gif" alt="image-20200204040202384"></p>
-<p>所以实现:</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204040234237.png" srcset="/img/loading.gif" alt="image-20200204040234237"></p>
-<p>对于输入的词语，我们要以向量的形式输入</p>
-<h3 id="word-embedding"><a href="#word-embedding" class="headerlink" title="word_embedding"></a>word_embedding</h3><p><strong>forward</strong></p>
-<p>这是一个这样的层，首先是 N x T 个词语的输入</p>
-<p>然后embedding层是一个 V x D 的层</p>
-<p>然后这个 N x T 中的值是在[0, V]</p>
-<p>所以将N x T 个单词中替换成 N x T 个V维的向量</p>
-<p>这个embedding的权重也是需要更新的</p>
-<p>实现上很简单:</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204041201681.png" srcset="/img/loading.gif" alt="image-20200204041201681"></p>
-<p><strong>backward</strong></p>
-<p>这个embeding的backward，也是有点意思的，注意到这个函数np.add.at意思是在对应的位置加上指定的值。</p>
-<p>实现:</p>
-<p>np.add.at(dW, x.flatten(), dout.reshape(-1, D))</p>
-<p>也就是说在对应的单词权重上加上梯度</p>
-<h3 id="temporal-affine"><a href="#temporal-affine" class="headerlink" title="temporal_affine"></a>temporal_affine</h3><p>然后就是基本的全连接层了，将传递的历史信息传出来的层</p>
-<p>这个就不介绍了</p>
-<h2 id="IN-amp-OUT"><a href="#IN-amp-OUT" class="headerlink" title="IN &amp; OUT"></a>IN &amp; OUT</h2><p>我想说一下这个输入输出</p>
-<p>现在有一组captions。</p>
-<p>比如: 我 真的 睡不着 觉</p>
-<p>RNN的目的是判断下一个单词的输出</p>
-<p>这样我们把数据分成两组，输入和输出</p>
-<p>输入：我 真的 睡不着</p>
-<p>输出：真的 睡不着 觉</p>
-<p>然后输出可以作为label然后然后算loss回传</p>
-<p>​     推出</p>
-<p>我 ——-》 真的</p>
-<p>真的 ——》 睡不着</p>
-<p>睡不着 ——》觉</p>
-<p>然后还要注意一个问题: 因为输出的长度不定，所以会有Null填充， 但是Null又不能作为一个损失，所以要有一个mask来标记，此处是否为NULL, 然后决定损失上要不要加他。</p>
-<p>接下来有请下一位主角LSTM</p>
-<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><p>LSTM 的出现是因为如果接受的序列过长RNN会出现梯度消失和梯度爆炸的问题，所以我们应该有办法来限制历史信息不应该太长。</p>
-<p>于是有了LSTM， 实际上就是一个进化一点的RNN啦</p>
-<p>变化在于这里:</p>
-<ol>
-<li>多了一个传递信息C来控制哪些信息是需要的哪些信息是不需要的</li>
-<li>将原本的out拆成了四份</li>
+            <h1 id="MOpt-Optimized-Mutation-Scheduling-for-Fuzzers"><a href="#MOpt-Optimized-Mutation-Scheduling-for-Fuzzers" class="headerlink" title="MOpt: Optimized Mutation Scheduling for Fuzzers"></a>MO<em>pt</em>: Optimized Mutation Scheduling for Fuzzers</h1><ol>
+<li><p><strong>Abstract</strong> </p>
+<p>Mutation-based fuzzing is one of the most popular vulnerability discovery solutions. Its performance of generating interesting test cases highly depends on the mutation scheduling strategies. However, existing fuzzers usually follow a specific distribution to select mutation operators, which is inefficient in finding vulnerabilities on general programs. Thus, in this paper, we present a novel mutation scheduling scheme MOPT, which enables mutation-based fuzzers to discover vulnerabilities more efficiently. MOPT utilizes a customized Particle Swarm Optimization (PSO) algorithm to fifind the optimal selection probability distribution of operators with respect to fuzzing effectiveness, and provides a pacemaker fuzzing mode to accelerate the convergence speed of PSO. We applied MOPT to the state of-the-art fuzzers AFL, AFLFast and VUzzer, and implemented MOPT-AFL, -AFLFast and -VUzzer respectively, and then evaluated them on 13 real world open-source programs. The results showed that, MOPT-AFL could find 170% more security vulnerabilities and 350% more crashes than AFL. MOPT-AFLFast and MOPT-VUzzer also outperform their counterparts. Furthermore, the extensive evaluation also showed that MOPT provides a good rationality, compatibility and steadiness, while introducing negligible costs.</p>
+</li>
 </ol>
-<p>来看具体的，先上一张图:<br><img src="https://pic2.zhimg.com/v2-556c74f0e025a47fea05dc0f76ea775d_1200x500.jpg" srcset="/img/loading.gif" alt="人人都能看懂的LSTM" style="zoom:50%;" /></p>
-<p>其实上图已经说得很明白了哈哈哈哈</p>
-<p>我们输入的依旧是N x T x D 的 x ， 这里我们会将x乘以W矩阵(D x 4H) 就会得到NxTx4H 的 out(同理对于历史信息)，</p>
-<p>注意，这里的拆分之前是跟RNN一致的，先求出out</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204045946993.png" srcset="/img/loading.gif" alt="image-20200204045946993"></p>
-<p>out就可以进行拆分成上图的 i, f , o, g (计算过程字母参照公式不是图)</p>
-<p>拆分之后的计算()：</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204045930064.png" srcset="/img/loading.gif" alt="image-20200204045930064"></p>
-<p>之后算出传递信息</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204045938044.png" srcset="/img/loading.gif" alt="image-20200204045938044"></p>
-<p>然后说一下LSTM的backward：</p>
-<p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204051653566.png" srcset="/img/loading.gif" alt="image-20200204051653566"></p>
-<p>这里解释了怎么得到dout(有点潦草)，但有了dout之后，相当于就把他拼回去了，之后就跟正常的一样求需要的就可以了</p>
-<h3 id="留了个问题"><a href="#留了个问题" class="headerlink" title="留了个问题"></a>留了个问题</h3><p><img src="https://raw.githubusercontent.com/Simplewyl2000/blogImg/master/image-20200204051843512.png" srcset="/img/loading.gif" alt="image-20200204051843512"></p>
-<p>没太理解这一部分内容，由于连不上远程主机也看到具体效果</p>
+<ol start="2">
+<li><p>The <strong>key problem</strong> targeted by the approach (a few sentences)</p>
+<p>Consider these several preconditions:</p>
+<ol>
+<li><em>Different mutation operators efficiencies on one target program are different.</em> </li>
+<li><em>Each operators efficiency varies with target programs.</em></li>
+<li><em>AFL spends most time on the deterministic stage.</em></li>
+<li>AFL spends much time on the inefficient mutation operators</li>
+</ol>
+<p>Hence, the mutation schedulers in existing fuzzers, which follow some pre-defined distributions, are not efficient. Ideally, more time should be spent on mutation operators that perform better at generating interesting test cases. Therefore, a better mutation scheduler is demanded.</p>
+</li>
+</ol>
+<ol start="3">
+<li><p><strong>Inputs</strong> of the approach (One sentence)</p>
+<p>Series of operators and target programs</p>
+</li>
+</ol>
+<ol start="4">
+<li><p><strong>Outputs</strong> of the approach (One sentence)</p>
+<p>Selection probability distribution of the operators.</p>
+</li>
+</ol>
+<ol start="5">
+<li><p><strong>Why the paper is accepted?</strong> </p>
+<p>In terms of usefulness, this approach has been used in several state-of-the-art fuzzers,including AFL, AFLFast and VUzzer, and evaluated them on 13 real world programs. </p>
+<p>The use of  <strong>Particle Swarm Optimization</strong> to help determine how to arrange the operators is quite novel. </p>
+<p>This paper uses customized PSO algorithm, and it fits better in this scenario because it uses one swarm to represent one distribution, which corresponding to one solution, and it uses multiple swarms to represent multiple solutions, which makes full use of the group experience.</p>
+</li>
+</ol>
+<ol start="6">
+<li><p><strong>Summary</strong> </p>
+<p>Chenyang Lyu et.al proposed a novel mutation scheduling scheme, named MOPT, based on Particle Swarm Optimization (PSO), which can efficiently determine the distribution of the mutation operators.</p>
+</li>
+</ol>
+<ol start="7">
+<li><p><strong>Research pattern</strong> </p>
+<ul>
+<li><p>Inadequacy of existing work: 1)The scheduler incurs performance overhead 2)Unbalanced data for machine learning</p>
+</li>
+<li><p>Problem definition: the mutation schedulers in existing fuzzers, which follow some pre-defined distributions, are not efficient.</p>
+</li>
+<li><p>Problem motivation: more time should be spent on mutation operators that perform better at generating interesting test cases. Therefore, a better mutation scheduler is demanded.</p>
+</li>
+<li><p>Observations: In AFL, Fig. 3 shows that, the mutation operators bitflip1/1 and bitflip 2/1 have found the most interesting test</p>
+<p>cases. But according to Fig. 4, they are only selected for a small number of times.</p>
+<p><img src="https://i.loli.net/2020/10/30/KWCsUprtv7gnHaL.png" srcset="/img/loading.gif" alt="Fig.3"></p>
+<center><div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;alignment: center">Fig.3</div></center>
+
+<p><img src="https://i.loli.net/2020/10/30/GYmbRpyvLXK4iAk.png" srcset="/img/loading.gif" alt="Fig.4"></p>
+</li>
+</ul>
+<center><div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;alignment: center">Fig.4</div></center>
+
+<ul>
+<li><p>Types of methodologies: customized PSO algorithm, about PSO algorithm: <a href="https://blog.csdn.net/daaikuaichuan/article/details/81382794" target="_blank" rel="noopener">https://blog.csdn.net/daaikuaichuan/article/details/81382794</a></p>
+</li>
+<li><p>Evaluation approaches: Because MOpt is like a plugin in a fuzz tool, control experiments are conducted in this paper. Compare the efficiency between origin AFL and AFL equipped with MOpt.</p>
+</li>
+<li><p>threat to validity: The experiments test 13 real world programs,  which are still a limited number of scenarios. More target programs are needed.</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="8">
+<li><p><strong>Evaluation</strong> </p>
+<ul>
+<li><p><strong>The subject：</strong> Evaluated MOPT on 13 open-source linux programs , each of which comes from different source files and has different functionality representing a broad range of programs.</p>
+</li>
+<li><p><strong>Tool used:</strong>  AFL, Angora, VUzzer</p>
+</li>
+<li><p><strong>Evaluation metric:</strong> The main evaluation metric is the number of the unique crashes discovered by each fuzzer. Since coverage-based fuzzers such as <em>AFLFast</em>  and <em>VUzzer</em> consider that exploring more unique paths leads to more unique crashes, the second evaluation metric is the number of unique paths discovered by each fuzzer.</p>
+</li>
+<li><p><strong>Key result:</strong> MOPT-AFL-tmp and MOPT-AFL-ever are significantly more efficient than AFL on all the programs. In total, MOPT-AFL-tmp and MOPT AFL-ever discover 2,195 and 2,334 more unique crashes than AFL on the 13 programs. Thus, MOPT-AFL has much better performance than AFL in exploring unique crashes. What’s more, Both MOPT-AFL-tmp and MOPT-AFL-ever discover more vulnerabilities than AFL by a wide margin. For instance, MOPT-AFL-tmp finds 45 more security CVEs than AFL; MOPT-AFL-ever finds 23 more unreported CVEs than AFL;</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="9">
+<li><p><strong>Reflection</strong></p>
+<ol>
+<li>In this paper,  the cafeteria of choosing the operator is its efficiency of the creating interesting testing cases, however, it is a somehow heuristic idea. Because in the  <strong>Havoc stage</strong> of the AFL, AFL selects <strong>a series</strong> of <em>Ro</em> mutation operators following the uniform distribution, and applies them on the seed to generate one test case, then the quality of the seed mutation can also  be influenced by other operators, therefore, the consideration of the combination of these operators is needed.</li>
+<li>The experiments of the paper use only 13 real world program to test its feature, which may be not persuasive enough to prove its efficiency, more real world programs and scenarios are needed to test this new approach of mutation schedule.</li>
+<li>NN can also be used for seed choosing and mutation choosing, as for issues such as unbalanced data problem, it can be solved by <a href="https://www.usenix.org/conference/usenixsecurity20/presentation/zong" target="_blank" rel="noopener">https://www.usenix.org/conference/usenixsecurity20/presentation/zong</a></li>
+<li>Seed selection and mutation still have lots of interesting fields to explore.</li>
+</ol>
+</li>
+</ol>
 
             <hr>
           </div>
@@ -266,7 +276,7 @@
               <span>
                 <i class="iconfont icon-inbox"></i>
                 
-                  <a class="hover-with-bg" href="/categories/Deep-learning/">Deep learning</a>
+                  <a class="hover-with-bg" href="/categories/Software-security/">Software security</a>
                   &nbsp;
                 
               </span>&nbsp;&nbsp;
@@ -275,9 +285,7 @@
               <span>
                 <i class="iconfont icon-tag"></i>
                 
-                  <a class="hover-with-bg" href="/tags/Math/">Math</a>
-                
-                  <a class="hover-with-bg" href="/tags/Deep-learning/">Deep learning</a>
+                  <a class="hover-with-bg" href="/tags/Software-security/">Software security</a>
                 
               </span>
             
@@ -465,7 +473,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "RNN&LSTM&nbsp;",
+        "MOpt&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
