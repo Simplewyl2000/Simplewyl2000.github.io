@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives - Simple</title>
+  <title>Simple</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -42,7 +42,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -123,6 +123,10 @@
           </div>
 
           
+            <div class="scroll-down-bar">
+              <i class="fas fa-angle-down scroll-down-arrow"></i>
+            </div>
+          
         </div>
       </div>
     </div>
@@ -138,68 +142,74 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">31 posts in total.</p>
-  <hr>
-  
+
+  <div class="row mx-auto index-card">
     
-      
-      <p class="h5">2019</p>
     
-    <a href="/2019/11/30/%E4%BB%8E%E4%B8%8A%E7%94%B5%E5%88%B0%E5%B1%95%E7%A4%BA%E7%BD%91%E9%A1%B5/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">show Website</span>
-      <span style="float: right;">11-30</span>
-    </a>
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/05/25/%E4%BB%A3%E7%A0%81%E6%A4%8D%E5%85%A5/">
+        <p class="h4 index-header">shell code injection</p>
+      </a>
+
+      <a href="/2019/05/25/%E4%BB%A3%E7%A0%81%E6%A4%8D%E5%85%A5/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">shell code代码植入首先我们复习一下汇编的相关知识
+函数Giao用
+
+
+开新的栈帧，下面依次是ebp，断点地址，参数。
+
+然后esp在老上头，上面存着edi，esi这些之前寄存器的值。
+
+此时的ebp是定海神针，局部变量的操作都是靠他来定位
+
+然后写入局部变量就是先来后到从下往上写
+
+返回的时候弹回之前的东西，然后断点给EIP，之后esp+N(淹没参数)
+
+
+这个0 days上给的其实跟我们做的软安实验是如出一辄的，只不过他的植入是在buffer的顶部开始植入，而我们的软安课设是JMP ESP 到下面去执行，也就是一个在覆盖地址前面，一个在覆盖地址后面，而且更重要的区别在于我们用JMP</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Software-security/">Software security</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Software-security/">Software security</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/3/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    </span>
+  </nav>
   
-    
-    <a href="/2019/11/26/%E7%BD%91%E7%BB%9C%E5%B1%82%E8%A6%81%E7%82%B9/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Network layer</span>
-      <span style="float: right;">11-26</span>
-    </a>
-  
-    
-    <a href="/2019/11/25/GAN/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">GAN</span>
-      <span style="float: right;">11-25</span>
-    </a>
-  
-    
-    <a href="/2019/11/25/Nmap/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Nmap</span>
-      <span style="float: right;">11-25</span>
-    </a>
-  
-    
-    <a href="/2019/11/24/Style%20transfer/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Style transfer</span>
-      <span style="float: right;">11-24</span>
-    </a>
-  
-    
-    <a href="/2019/11/21/RNN%20&%20LSTM/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">RNN&amp;LSTM</span>
-      <span style="float: right;">11-21</span>
-    </a>
-  
-    
-    <a href="/2019/11/13/CNN/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CNN</span>
-      <span style="float: right;">11-13</span>
-    </a>
-  
-    
-    <a href="/2019/11/11/BP/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Backward propagation</span>
-      <span style="float: right;">11-11</span>
-    </a>
-  
-    
-    <a href="/2019/11/02/mess/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Mess</span>
-      <span style="float: right;">11-02</span>
-    </a>
-  
-</div>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
+
 
 
               </div>
@@ -316,7 +326,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "Hello, world. This is Alan.&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

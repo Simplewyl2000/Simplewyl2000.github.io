@@ -147,6 +147,62 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/12/25/SVD%E7%AE%97%E6%B3%95/">
+        <p class="h4 index-header">SVD</p>
+      </a>
+
+      <a href="/2019/12/25/SVD%E7%AE%97%E6%B3%95/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">SVD算法
+先上一张图。。。
+我们最终的目的就是将目标M矩阵分解成
+
+而对于μ1，μ2，就是奇异值，其实是特征值开根号。
+注意到，
+
+我们可以用几个简单矩阵的加和来表示目标矩阵M
+可以实现小的奇异值去掉，进而实现去噪功能，因为奇异值在这里是可以理解为权重的
+
+我们来看一下奇异值分解的过程
+首先实现矩阵的两种转置相乘
+
+看第二步，VDVT，这是矩阵的对角化操作其中D是对角矩阵而且是W的特征值而且全为正数。
+于是将D拆开成Σ和Σ的转置相乘（其中Σ里的值就是奇异值），也就是说Σ里的值是特征值开根号
+中间加入VTV，因为V是正交矩阵(实数域下正交矩阵就是幺正矩阵)，幺正矩阵的转置等于幺正矩阵的逆。
+这</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Machine-learning/">Machine learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Machine-learning/">Machine learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a href="/2019/12/25/OWASP/">
         <p class="h4 index-header">OWASP</p>
       </a>
@@ -588,61 +644,11 @@ Ms COCO（Common Objects in COntext）
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2019/11/02/mess/">
-        <p class="h4 index-header">Mess</p>
-      </a>
-
-      <a href="/2019/11/02/mess/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">杂七杂八对目前CNN知识的一点小总结，前前后后学了CNN几遍了，看了忘，忘了看，希望这次做个试验把他记住咯。
-按顺序CNN的顺序进行一个知识点总结吧
-基本顺序:
-输入图片-&gt;卷积-&gt;池化-&gt;MLP-&gt;输出
-从卷积说起
-卷积这个还是比较简单的，注意下卷积核的概念就好
-)
-目前照我的理解，卷积层中会有多个卷积核，得到多种feature map, 如下图所示
-非线性激活卷积之后进行一个类似于激活的操作，对卷积出来的结果进行一个激活
-卷积层对原图运算多个卷积产生一组线性激活响应，而非线性激活层是对之前的结果进行一个非线性的激活响应。
-在神经网络中用到最多的非线性激活函数是Rel</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-02&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/Deep-learning/">Deep learning</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Math/">Math</a>&nbsp;
-          
-            <a href="/tags/Deep-learning/">Deep learning</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

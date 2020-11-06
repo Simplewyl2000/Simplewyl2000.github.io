@@ -147,6 +147,56 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/11/02/mess/">
+        <p class="h4 index-header">Mess</p>
+      </a>
+
+      <a href="/2019/11/02/mess/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">杂七杂八对目前CNN知识的一点小总结，前前后后学了CNN几遍了，看了忘，忘了看，希望这次做个试验把他记住咯。
+按顺序CNN的顺序进行一个知识点总结吧
+基本顺序:
+输入图片-&gt;卷积-&gt;池化-&gt;MLP-&gt;输出
+从卷积说起
+卷积这个还是比较简单的，注意下卷积核的概念就好
+)
+目前照我的理解，卷积层中会有多个卷积核，得到多种feature map, 如下图所示
+非线性激活卷积之后进行一个类似于激活的操作，对卷积出来的结果进行一个激活
+卷积层对原图运算多个卷积产生一组线性激活响应，而非线性激活层是对之前的结果进行一个非线性的激活响应。
+在神经网络中用到最多的非线性激活函数是Rel</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-02&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Deep-learning/">Deep learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Deep-learning/">Deep learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a href="/2019/10/26/softmax/">
         <p class="h4 index-header">Softmax</p>
       </a>
@@ -530,64 +580,11 @@ loss这样理解：正确种类的标准化得分的比例取对数再取反，�
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2019/05/25/%E4%BB%A3%E7%A0%81%E6%A4%8D%E5%85%A5/">
-        <p class="h4 index-header">shell code injection</p>
-      </a>
-
-      <a href="/2019/05/25/%E4%BB%A3%E7%A0%81%E6%A4%8D%E5%85%A5/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">shell code代码植入首先我们复习一下汇编的相关知识
-函数Giao用
-
-
-开新的栈帧，下面依次是ebp，断点地址，参数。
-
-然后esp在老上头，上面存着edi，esi这些之前寄存器的值。
-
-此时的ebp是定海神针，局部变量的操作都是靠他来定位
-
-然后写入局部变量就是先来后到从下往上写
-
-返回的时候弹回之前的东西，然后断点给EIP，之后esp+N(淹没参数)
-
-
-这个0 days上给的其实跟我们做的软安实验是如出一辄的，只不过他的植入是在buffer的顶部开始植入，而我们的软安课设是JMP ESP 到下面去执行，也就是一个在覆盖地址前面，一个在覆盖地址后面，而且更重要的区别在于我们用JMP</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-25&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/Software-security/">Software security</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Software-security/">Software security</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   
