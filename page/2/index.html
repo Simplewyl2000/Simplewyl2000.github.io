@@ -147,6 +147,69 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/01/25/SVM/">
+        <p class="h4 index-header">SVM</p>
+      </a>
+
+      <a href="/2020/01/25/SVM/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">SVM的一点心得支持向量机公式推导
+
+首先明确，在虚线上的点被称为支持向量
+好，知道这点之后往后看
+为了使得分类效果较好，我们往往希望支持向量到分类面的距离d1,d2 可以最大，
+于是有了算这个决策面的方法
+首先看距离公式：
+
+这是在高中学过的距离公式
+其中，w，x是向量，w对应到二维平面就是斜率咯
+再看约束条件
+
+
+
+这里注明一下，这个d是一个常量，应该理解为d1这样，要跟之后的d相区分，是指支持向量到决策面距离
+
+
+
+
+​    看到这里，稍微解释一下，只有是支持向量才能将上半部分替换为1，于是扩大d的方法就是得到w的最小值
+
+
+注意，这个1/2是为了之后求导方便
+求得最小值约束条件下最小</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-25&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Machine-learning/">Machine learning</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Math/">Math</a>&nbsp;
+          
+            <a href="/tags/Machine-learning/">Machine learning</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a href="/2019/12/25/SVD%E7%AE%97%E6%B3%95/">
         <p class="h4 index-header">SVD</p>
       </a>
@@ -562,69 +625,6 @@ Ms COCO（Common Objects in COntext）
       <div class="index-btm">
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-13&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/Deep-learning/">Deep learning</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Math/">Math</a>&nbsp;
-          
-            <a href="/tags/Deep-learning/">Deep learning</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2019/11/11/BP/">
-        <p class="h4 index-header">Backward propagation</p>
-      </a>
-
-      <a href="/2019/11/11/BP/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">反向传播主要就是利用链式求导
-反向传播分为两种:
-
-隐含层到输出层
-隐含层到隐含层
-
-隐含层到输出层
-首先计算损失函数
-
-为了得到某个权重对于总误差的影响:
-得到：
-
-
-这样可以看到，就是一个反向回传的过程
-​    
-
-
-三者连乘
-得到这个梯度之后进行更新权重即可
-隐含层到隐含层
-就是注意一个问题
-因为隐含层到输出层是多对一，也就是说最后隐含层的节点只对后面一层的一个节点产生影响，当然回传也就是只需这个被影响的节点传回来，但是隐含层到隐含层是多对多，这也就是说前一个节点影响到了后一个的多个节点，所以和隐含层到输出层的不同就在于在计算回传的时候注意被影响的节点都要考虑到，仅此区别
-如上图
-​ </div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-11&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>
